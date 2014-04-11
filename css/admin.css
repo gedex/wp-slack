@@ -1,0 +1,17 @@
+#slack_submitdiv .inside {
+	margin: 0;
+	padding: 0;
+}
+
+#slack-test-notify {
+	width: 290px;
+	height: 32px;
+}
+
+#slack-test-notify-button {
+	float: left;
+}
+
+#slack-test-notify .spinner {
+	display: none;
+}
