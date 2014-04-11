@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Slack by gedex</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Slack</h1>
+        <p>This plugin allows you to send notifications to Slack channels when certain events in WordPress occur.</p>
+
+        <p class="view"><a href="https://github.com/gedex/wp-slack">View the Project on GitHub <small>gedex/wp-slack</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/gedex/wp-slack/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/gedex/wp-slack/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/gedex/wp-slack">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>This plugin allows you to send notifications to Slack channels when certain events in WordPress occur.</p>
+
+<h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
+
+<p>By default, there are two events that can be sent to Slack:</p>
+
+<ol>
+<li>When a post is published</li>
+<li>When there's a new comment</li>
+</ol><p>It's possible to add more events using <code>slack_get_events</code> filter. Here's an example to add new event when a user is logged in:</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">add_filter</span><span class="p">(</span> <span class="s1">'slack_get_events'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span> <span class="nv">$events</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$events</span><span class="p">[</span><span class="s1">'user_login'</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'action'</span>      <span class="o">=&gt;</span> <span class="s1">'wp_login'</span><span class="p">,</span>
+        <span class="s1">'description'</span> <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'When user logged in'</span><span class="p">,</span> <span class="s1">'slack'</span> <span class="p">),</span>
+        <span class="s1">'message'</span>     <span class="o">=&gt;</span> <span class="k">function</span><span class="p">(</span> <span class="nv">$user_login</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">sprintf</span><span class="p">(</span> <span class="s1">'%s is logged in'</span><span class="p">,</span> <span class="nv">$user_login</span> <span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">);</span>
+
+    <span class="k">return</span> <span class="nv">$events</span><span class="p">;</span>
+<span class="p">}</span> <span class="p">);</span>
+</pre></div>
+
+<p>The new event will be shown on integration setting and if enabled anytime a user is logged in you'll get the notification in Slack.</p>
+
+<p><strong>Development of this plugin is done on <a href="https://github.com/gedex/wp-slack">GitHub</a>. Pull requests are always welcome</strong>.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<ol>
+<li>Upload <strong>Slack</strong> plugin to your blog's <code>wp-content/plugins/</code> directory and activate.</li>
+<li>Add new <strong>Incoming WebHooks</strong> service in your Slack, the URL is <code>https://&lt;SUBDOMAIN&gt;.com/services/new/incoming-webhook</code> (replace <code>&lt;SUBDOMAIN&gt;</code> with your Slack's subdomain). Once created, note the URL of the service (you'll set it into integration entry in your WordPress).</li>
+<li>Go to <strong>Slack</strong> menu in your WordPress to add the integration (make sure you're logged in as an Adminstrator).</li>
+</ol><h2>
+<a name="screenshots" class="anchor" href="#screenshots"><span class="octicon octicon-link"></span></a>Screenshots</h2>
+
+<ol>
+<li>Integrations list. Yes, you can add more than one integration.</li>
+<li>Edit integration screen.</li>
+<li>Your channel get notified when some events occur.</li>
+</ol><h2>
+<a name="changelog" class="anchor" href="#changelog"><span class="octicon octicon-link"></span></a>Changelog</h2>
+
+<h3>
+<a name="010" class="anchor" href="#010"><span class="octicon octicon-link"></span></a>0.1.0</h3>
+
+<p>Initial release</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/gedex">gedex</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
