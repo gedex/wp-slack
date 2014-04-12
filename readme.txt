@@ -1,5 +1,6 @@
 === Slack ===
 Contributors:      akeda
+Donate link:       http://goo.gl/DELyuR
 Tags:              slack, api, chat, notification
 Requires at least: 3.6
 Tested up to:      3.8.1
