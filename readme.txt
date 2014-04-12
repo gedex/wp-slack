@@ -8,9 +8,11 @@ Stable tag:        trunk
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin allows you to send notifications to Slack channels when certain events in WordPress occur.
+Send notifications to Slack channels when certain events in WordPress occur.
 
 == Description ==
+
+This plugin allows you to send notifications to Slack channels when certain events in WordPress occur.
 
 By default, there are two events that can be sent to Slack:
 
