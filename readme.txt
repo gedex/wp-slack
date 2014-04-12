@@ -16,21 +16,7 @@ By default, there are two events that can be sent to Slack:
 1. When a post is published
 1. When there's a new comment
 
-It's possible to add more events using `slack_get_events` filter. Here's an example to add new event when a user is logged in:
-
-`
-add_filter( 'slack_get_events', function( $events ) {
-	$events['user_login'] = array(
-		'action'      => 'wp_login',
-		'description' => __( 'When user logged in', 'slack' ),
-		'message'     => function( $user_login ) {
-			return sprintf( '%s is logged in', $user_login );
-		}
-	);
-
-	return $events;
-} );
-`
+It's possible to add more events using `slack_get_events` filter. For more information check [the doc](http://gedex.web.id/wp-slack/).
 
 The new event will be shown on integration setting and if enabled anytime a user is logged in you'll get the notification in Slack.
 
