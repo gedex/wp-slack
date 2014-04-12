@@ -42,28 +42,28 @@ if [ ${#staged_php_files[@]} != 0 ]; then
 	done
 
 	# PHPUnit
-	if [ -e phpunit.xml ] || [ -e phpunit.xml.dist ]; then
-		echo "## phpunit"
-		if [ "$USER" != 'vagrant' ] && command -v vagrant >/dev/null 2>&1 && command -v vassh >/dev/null 2>&1; then
-			echo "Running phpunit in vagrant..."
-			vassh phpunit
-		elif ! command -v phpunit >/dev/null 2>&1;then
-			echo "Skipping phpunit since not installed"
-		elif [ -z "$WP_TESTS_DIR" ]; then
-			echo "Skipping phpunit since WP_TESTS_DIR env missing"
-		else
-			phpunit
-		fi
-	fi
+	# if [ -e phpunit.xml ] || [ -e phpunit.xml.dist ]; then
+	# 	echo "## phpunit"
+	# 	if [ "$USER" != 'vagrant' ] && command -v vagrant >/dev/null 2>&1 && command -v vassh >/dev/null 2>&1; then
+	# 		echo "Running phpunit in vagrant..."
+	# 		vassh phpunit
+	# 	elif ! command -v phpunit >/dev/null 2>&1;then
+	# 		echo "Skipping phpunit since not installed"
+	# 	elif [ -z "$WP_TESTS_DIR" ]; then
+	# 		echo "Skipping phpunit since WP_TESTS_DIR env missing"
+	# 	else
+	# 		phpunit
+	# 	fi
+	# fi
 
 	# PHP_CodeSniffer WordPress Coding Standards
-	echo "## phpcs"
-	if command -v phpcs >/dev/null 2>&1; then
-		phpcs_standard=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
-		phpcs -p -s -v --standard=$phpcs_standard "${staged_php_files[@]}"
-	else
-		echo "Skipping phpcs since not installed"
-	fi
+	# echo "## phpcs"
+	# if command -v phpcs >/dev/null 2>&1; then
+	# 	phpcs_standard=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
+	# 	phpcs -p -s -v --standard=$phpcs_standard "${staged_php_files[@]}"
+	# else
+	# 	echo "Skipping phpcs since not installed"
+	# fi
 fi
 
 # Make sure the readme.md never gets out of sync with the readme.txt
