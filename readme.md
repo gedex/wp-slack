@@ -13,7 +13,7 @@ Send notifications to Slack channels when certain events in WordPress occur.
 
 ## Description ##
 
-This plugin allows you to send notifications to Slack channels when certain events in WordPress occur.
+This plugin allows you to send notifications to [Slack](https://slack.com) channels when certain events in WordPress occur.
 
 [![Play video on YouTube](http://i1.ytimg.com/vi/Az-XqfRmp_k/hqdefault.jpg)](http://www.youtube.com/watch?v=Az-XqfRmp_k)
 
