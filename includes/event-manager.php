@@ -66,6 +66,14 @@ class WP_Slack_Event_Manager {
 				'description' => __( 'When a post is published', 'slack' ),
 				'default'     => true,
 				'message'     => function( $new_status, $old_status, $post ) {
+					$notified_post_types = apply_filters( 'slack_event_transition_post_status_post_types', array(
+						'post',
+					) );
+
+					if ( ! in_array( $post->post_type, $notified_post_types ) ) {
+						return false;
+					}
+
 					if ( 'publish' !== $old_status && 'publish' === $new_status ) {
 						return sprintf(
 							'New post published: *<%1$s|%2$s>* by *%3$s*',
@@ -83,13 +91,23 @@ class WP_Slack_Event_Manager {
 				'description' => __( 'When there is a new comment', 'slack' ),
 				'default'     => false,
 				'message'     => function( $comment_id, $comment ) {
-					$comment    = is_object( $comment ) ? $comment : get_comment( absint( $comment ) );
-					$post_title = get_the_title( $comment->comment_post_ID );
+					$comment = is_object( $comment ) ? $comment : get_comment( absint( $comment ) );
+					$post_id = $comment->comment_post_ID;
+
+					$notified_post_types = apply_filters( 'slack_event_wp_insert_comment_post_types', array(
+						'post',
+					) );
+
+					if ( ! in_array( get_post_type( $post_id ), $notified_post_types ) ) {
+						return false;
+					}
+
+					$post_title = get_the_title( $post_id );
 					return sprintf(
 						'New comment by *%1$s* on *<%2$s|%3$s>* (_%4$s_)',
 
 						$comment->comment_author,
-						get_permalink( $comment->comment_post_ID ),
+						get_permalink( $post_id ),
 						$post_title,
 						$comment->comment_approved ? 'approved' : 'pending'
 					);
