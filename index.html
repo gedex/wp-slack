@@ -15,30 +15,56 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Slack</h1>
-        <p>This plugin allows you to send notifications to Slack channels when certain events in WordPress occur.</p>
-
+        <h1>
+          <img src="images/slack_logo_header.png">
+          Slack
+        </h1>
+        <p>This WordPress plugin allows you to send notifications to <a href="https://slack.com" target="_blank">Slack</a> channels when certain events in WordPress occur.</p>
+        <p class="view"><a href="https://github.com/gedex/wp-slack">View the Project on WordPress <small>gedex/wp-slack</small></a></p>
         <p class="view"><a href="https://github.com/gedex/wp-slack">View the Project on GitHub <small>gedex/wp-slack</small></a></p>
 
-
         <ul>
-          <li><a href="https://github.com/gedex/wp-slack/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/gedex/wp-slack/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="http://downloads.wordpress.org/plugin/slack.zip">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/gedex/wp-slack">View On <strong>WordPress</strong></a></li>
           <li><a href="https://github.com/gedex/wp-slack">View On <strong>GitHub</strong></a></li>
         </ul>
+
+        <div style="text-align: center;">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_donations">
+            <input type="hidden" name="business" value="admin@gedex.web.id">
+            <input type="hidden" name="lc" value="ID">
+            <input type="hidden" name="item_name" value="Akeda Bagus WordPress">
+            <input type="hidden" name="item_number" value="Akeda Bagus">
+            <input type="hidden" name="no_note" value="0">
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+          </form>
+        </div>
       </header>
+
       <section>
-        <p>This plugin allows you to send notifications to Slack channels when certain events in WordPress occur.</p>
+        <h2><a name="toc" class="anchor" href="#toc"><span class="octicon octicon-link"></span></a>Table of Contents</h2>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#screenshots">Screenshots</a></li>
+          <li><a href="#screencast">Video showing plugin in action</a></li>
+          <li>
+            <a href="#installation">Installation</a>
+          </li>
+          <li><a href="#changelog">Changelog</a></li>
+        </ul>
 
-<h2>
-<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
-
-<p>By default, there are two events that can be sent to Slack:</p>
-
-<ol>
-<li>When a post is published</li>
-<li>When there's a new comment</li>
-</ol><p>It's possible to add more events using <code>slack_get_events</code> filter. Here's an example to add new event when a user is logged in:</p>
+        <h2><a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
+        <p>This WordPress plugin allows you to send notifications to Slack channels when certain events in WordPress occur.</p>
+        <p>By default, there are two events that can be sent to Slack:</p>
+        <ol>
+          <li>When a post is published</li>
+          <li>When there's a new comment</li>
+        </ol>
+        <p>It's possible to add more events using <code>slack_get_events</code> filter. Here's an example to add new event when a user is logged in:</p>
 
 <div class="highlight highlight-php"><pre><span class="nx">add_filter</span><span class="p">(</span> <span class="s1">'slack_get_events'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span> <span class="nv">$events</span> <span class="p">)</span> <span class="p">{</span>
     <span class="nv">$events</span><span class="p">[</span><span class="s1">'user_login'</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
@@ -53,9 +79,39 @@
 <span class="p">}</span> <span class="p">);</span>
 </pre></div>
 
-<p>The new event will be shown on integration setting and if enabled anytime a user is logged in you'll get the notification in Slack.</p>
+        <p>The new event will be shown on integration setting and if enabled anytime a user is logged in you'll get the notification in Slack.</p>
 
-<p><strong>Development of this plugin is done on <a href="https://github.com/gedex/wp-slack">GitHub</a>. Pull requests are always welcome</strong>.</p>
+        <h2><a name="screenshots" class="anchor" href="#screenshots"><span class="octicon octicon-link"></span></a>Screenshots</h2>
+        <p>Followings are screenshots to give you an idea how it looks.</p>
+
+        <p>
+          <a href="images/screenshot-1.png">
+            <img src="images/screenshot-1.png">
+          </a>
+          <br>
+          <em>Integrations list. Yes, you can add more than one integration.</em>
+        </p>
+
+        <p>
+          <a href="images/screenshot-2.png">
+            <img src="images/screenshot-2.png">
+          </a>
+          <br>
+          <em>Edit integration screen.</em>
+        </p>
+
+        <p>
+          <a href="images/screenshot-3.png">
+            <img src="images/screenshot-3.png">
+          </a>
+          <br>
+          <em>Your channel get notified when some events occur.</em>
+        </p>
+
+        <h2><a name="screencast" class="anchor" href="#screencast"><span class="octicon octicon-link"></span></a>Video showing plugin in action</h2>
+        <p>Not enough for screenshost? Here's the video showing the plugin in action:</p>
+        <iframe width="420" height="315" src="//www.youtube.com/embed/Az-XqfRmp_k" frameborder="0" allowfullscreen></iframe>
+        <p></p>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
@@ -64,14 +120,9 @@
 <li>Upload <strong>Slack</strong> plugin to your blog's <code>wp-content/plugins/</code> directory and activate.</li>
 <li>Add new <strong>Incoming WebHooks</strong> service in your Slack, the URL is <code>https://&lt;SUBDOMAIN&gt;.com/services/new/incoming-webhook</code> (replace <code>&lt;SUBDOMAIN&gt;</code> with your Slack's subdomain). Once created, note the URL of the service (you'll set it into integration entry in your WordPress).</li>
 <li>Go to <strong>Slack</strong> menu in your WordPress to add the integration (make sure you're logged in as an Adminstrator).</li>
-</ol><h2>
-<a name="screenshots" class="anchor" href="#screenshots"><span class="octicon octicon-link"></span></a>Screenshots</h2>
+</ol>
 
-<ol>
-<li>Integrations list. Yes, you can add more than one integration.</li>
-<li>Edit integration screen.</li>
-<li>Your channel get notified when some events occur.</li>
-</ol><h2>
+<h2>
 <a name="changelog" class="anchor" href="#changelog"><span class="octicon octicon-link"></span></a>Changelog</h2>
 
 <h3>
@@ -80,11 +131,11 @@
 <p>Initial release</p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/gedex">gedex</a></p>
+        <p>This project is maintained by <a href="http://gedex.web.id">Akeda Bagus</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
+
   </body>
 </html>
