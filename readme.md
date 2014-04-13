@@ -24,8 +24,6 @@ By default, there are two events that can be sent to Slack:
 
 It's possible to add more events using `slack_get_events` filter. For more information check [the doc](http://gedex.web.id/wp-slack/).
 
-The new event will be shown on integration setting and if enabled anytime a user is logged in you'll get the notification in Slack.
-
 **Development of this plugin is done on [GitHub](https://github.com/gedex/wp-slack). Pull requests are always welcome**.
 
 ## Installation ##
