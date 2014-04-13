@@ -49,6 +49,12 @@ It's possible to add more events using `slack_get_events` filter. For more infor
 
 ## Changelog ##
 
+### 0.2.0 ###
+* For default "When a post is published" and "When there is a new comment" events, limit the post type to "post"
+* Don't send notification if message evaluates to false
+* Plugin's banner
+* Put Slack URL in README
+
 ### 0.1.0 ###
 Initial release
 
