@@ -27,6 +27,13 @@ It's possible to add more events using `slack_get_events` filter. For more infor
 
 **Development of this plugin is done on [GitHub](https://github.com/gedex/wp-slack). Pull requests are always welcome**.
 
+There are some extension plugins that notify events triggered by other plugins. Belows are some of them:
+
+* [Slack EDD](http://wordpress.org/plugins/slack-edd)
+* [Slack WooCommerce](http://wordpress.org/plugins/slack-woocommerce)
+* [Slack Contact Form 7](http://wordpress.org/plugins/slack-contact-form-7)
+* [Slack Gravity Forms](http://wordpress.org/plugins/slack-gravityforms)
+
 ## Installation ##
 
 1. Upload **Slack** plugin to your blog's `wp-content/plugins/` directory and activate.
