@@ -1,7 +1,7 @@
 <?php
 /**
  * This is the plugin class and acts as container for component instances and
- * basic properties of a plugin. Using container like this will avoid poluting
+ * basic properties of a plugin. Using container like this will avoid polluting
  * global namespaces. There's no global constants and only one global object
  * defined, that's this class' instance.
  */
