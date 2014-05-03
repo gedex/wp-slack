@@ -113,22 +113,37 @@
         <iframe width="420" height="315" src="//www.youtube.com/embed/Az-XqfRmp_k" frameborder="0" allowfullscreen></iframe>
         <p></p>
 
-<h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+        <h2><a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<ol>
-<li>Upload <strong>Slack</strong> plugin to your blog's <code>wp-content/plugins/</code> directory and activate.</li>
-<li>Add new <strong>Incoming WebHooks</strong> service in your Slack, the URL is <code>https://&lt;SUBDOMAIN&gt;.com/services/new/incoming-webhook</code> (replace <code>&lt;SUBDOMAIN&gt;</code> with your Slack's subdomain). Once created, note the URL of the service (you'll set it into integration entry in your WordPress).</li>
-<li>Go to <strong>Slack</strong> menu in your WordPress to add the integration (make sure you're logged in as an Adminstrator).</li>
-</ol>
+        <ol>
+        <li>Upload <strong>Slack</strong> plugin to your blog's <code>wp-content/plugins/</code> directory and activate.</li>
+        <li>Add new <strong>Incoming WebHooks</strong> service in your Slack, the URL is <code>https://&lt;SUBDOMAIN&gt;.com/services/new/incoming-webhook</code> (replace <code>&lt;SUBDOMAIN&gt;</code> with your Slack's subdomain). Once created, note the URL of the service (you'll set it into integration entry in your WordPress).</li>
+        <li>Go to <strong>Slack</strong> menu in your WordPress to add the integration (make sure you're logged in as an Adminstrator).</li>
+        </ol>
 
-<h2>
-<a name="changelog" class="anchor" href="#changelog"><span class="octicon octicon-link"></span></a>Changelog</h2>
+        <h2>
+        <a name="changelog" class="anchor" href="#changelog"><span class="octicon octicon-link"></span></a>Changelog</h2>
 
-<h3>
-<a name="010" class="anchor" href="#010"><span class="octicon octicon-link"></span></a>0.1.0</h3>
+        <h3>
+        <a name="030" class="anchor" href="#030"><span class="octicon octicon-link"></span></a>0.3.0</h3>
+        <ul>
+          <li>Add activate / deactivate link in row actions</li>
+          <li>More columns in integration list table</li>
+        </ul>
 
-<p>Initial release</p>
+        <h3>
+        <a name="020" class="anchor" href="#020"><span class="octicon octicon-link"></span></a>0.2.0</h3>
+        <ul>
+          <li>For default "When a post is published" and "When there is a new comment" events, limit the post type to "post"</li>
+          <li>Don't send notification if message evaluates to false</li>
+          <li>Plugin's banner</li>
+          <li>Put Slack URL in README</li>
+        </ul>
+
+        <h3>
+        <a name="010" class="anchor" href="#010"><span class="octicon octicon-link"></span></a>0.1.0</h3>
+        <p>Initial release</p>
+
       </section>
       <footer>
         <p>This project is maintained by <a href="http://gedex.web.id">Akeda Bagus</a></p>
