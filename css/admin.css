@@ -15,3 +15,12 @@
 #slack-test-notify .spinner {
 	display: none;
 }
+
+.post-type-slack_integration .column-events ul {
+	margin: 0;
+	list-style-type: disc;
+}
+
+.post-type-slack_integration .column-events li {
+	margin-left: 1em;
+}

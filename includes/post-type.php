@@ -40,6 +40,10 @@ class WP_Slack_Post_Type {
 		// Removes quick edit and view actions.
 		add_filter( 'post_row_actions', array( $this, 'remove_actions' ), 10, 2 );
 
+		// Custom columns
+		add_filter( sprintf( 'manage_%s_posts_columns', $this->name ), array( $this, 'columns_header' ) );
+		add_action( sprintf( 'manage_%s_posts_custom_column', $this->name ), array( $this, 'custom_column_row' ), 10, 2 );
+
 		// Hides subsub top navigation.
 		add_filter( 'views_edit-' . $this->name, array( $this, 'hide_subsubsub' ) );
 
@@ -208,6 +212,61 @@ class WP_Slack_Post_Type {
 		}
 
 		return $actions;
+	}
+
+	/**
+	 * Custom columns for this post type.
+	 *
+	 * @param  array $columns
+	 * @return array
+	 *
+	 * @filter manage_{post_type}_posts_columns
+	 */
+	public function columns_header( $columns ) {
+		unset( $columns['date'] );
+
+		$columns['service_url'] = __( 'Service URL', 'slack' );
+		$columns['channel']     = __( 'Channel', 'slack' );
+		$columns['bot_name']    = __( 'Bot Name', 'slack' );
+		$columns['events']      = __( 'Notified Events', 'slack' );
+
+		return $columns;
+	}
+
+	/**
+	 * Custom column appears in each row.
+	 *
+	 * @param string $column  Column name
+	 * @param int    $post_id Post ID
+	 *
+	 * @action manage_{post_type}_posts_custom_column
+	 */
+	public function custom_column_row( $column, $post_id ) {
+		$setting = get_post_meta( $post_id, 'slack_integration_setting', true );
+		switch ( $column ) {
+			case 'service_url':
+				echo ! empty( $setting['service_url'] ) ? sprintf( '<a href="%s" target="_blank">%s</a>', esc_url( $setting['service_url'] ), esc_html( $setting['service_url'] ) ) : '';
+				break;
+			case 'channel':
+				echo ! empty( $setting['channel'] ) ? $setting['channel'] : '';
+				break;
+			case 'bot_name':
+				echo ! empty( $setting['username'] ) ? $setting['username'] : '';
+				break;
+			case 'events':
+				$events = $this->plugin->event_manager->get_events();
+
+				if ( ! empty( $setting['events'] ) ) {
+					echo '<ul>';
+					foreach ( $setting['events'] as $event => $enabled ) {
+						if ( $enabled && ! empty( $events[ $event ] ) ) {
+							printf( '<li>%s</li>', esc_html( $events[ $event ]['description'] ) );
+						}
+					}
+					echo '</ul>';
+				}
+				break;
+		}
 	}
 
 	/**
