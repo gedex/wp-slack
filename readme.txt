@@ -46,6 +46,10 @@ There are some extension plugins that notify events triggered by other plugins. 
 
 == Changelog ==
 
+= 0.3.0 =
+* Add activate / deactivate link in row actions
+* More columns in integration list table
+
 = 0.2.0 =
 * For default "When a post is published" and "When there is a new comment" events, limit the post type to "post"
 * Don't send notification if message evaluates to false
