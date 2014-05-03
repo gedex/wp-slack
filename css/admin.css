@@ -24,3 +24,8 @@
 .post-type-slack_integration .column-events li {
 	margin-left: 1em;
 }
+
+.post-type-slack_integration .inactive .column-title strong,
+.post-type-slack_integration .inactive .column-title strong a {
+	font-weight: 100;
+}

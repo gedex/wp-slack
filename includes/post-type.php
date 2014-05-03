@@ -34,15 +34,25 @@ class WP_Slack_Post_Type {
 		// Alters messages when bulk updating.
 		add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_post_updated_messages' ), 10, 2 );
 
-		// Removes edit in bulk actions.
-		add_filter( 'bulk_actions-edit-slack_integration', array( $this, 'remove_edit_in_bulk_actions' ) );
+		// Custom bulk actions.
+		add_filter( 'bulk_actions-edit-slack_integration', array( $this, 'custom_bulk_actions' ) );
 
-		// Removes quick edit and view actions.
-		add_filter( 'post_row_actions', array( $this, 'remove_actions' ), 10, 2 );
+		// Custom row actions.
+		add_filter( 'post_row_actions', array( $this, 'custom_row_actions' ), 10, 2 );
+
+		// Activate and deactivate actions.
+		add_action( 'admin_action_activate',   array( $this, 'activate' ) );
+		add_action( 'admin_action_deactivate', array( $this, 'deactivate' ) );
+
+		// Add notices for activate/deactivate actions.
+		add_action( 'all_admin_notices', array( $this, 'admin_notices' ) );
 
 		// Custom columns
 		add_filter( sprintf( 'manage_%s_posts_columns', $this->name ), array( $this, 'columns_header' ) );
 		add_action( sprintf( 'manage_%s_posts_custom_column', $this->name ), array( $this, 'custom_column_row' ), 10, 2 );
+
+		// Alter post class in admin to notice whether setting is activated or not.
+		add_filter( 'post_class', array( $this, 'post_class' ), 10, 3 );
 
 		// Hides subsub top navigation.
 		add_filter( 'views_edit-' . $this->name, array( $this, 'hide_subsubsub' ) );
@@ -196,22 +206,136 @@ class WP_Slack_Post_Type {
 	}
 
 	/**
+	 * Custom bulk actions.
+	 *
+	 * @param  array $actions
+	 * @return array
+	 *
 	 * @filter bulk_actions-edit-slack_integration
 	 */
-	public function remove_edit_in_bulk_actions( $actions ) {
+	public function custom_bulk_actions( $actions ) {
 		unset( $actions['edit'] );
+
+		// Unfortunately adding bulk actions won't work here.
+		// @see https://core.trac.wordpress.org/ticket/16031
+		//
+		// $actions['activate']   = __( 'Activate', 'slack' );
+		// $actions['deactivate'] = __( 'Deactivate', 'slack' );
+
 		return $actions;
 	}
 
-	public function remove_actions( $actions ) {
+	/**
+	 * Custom row actions for this post type.
+	 *
+	 * @param  array $actions
+	 * @return array
+	 *
+	 * @filter post_row_actions
+	 */
+	public function custom_row_actions( $actions ) {
 		$post = get_post();
 
 		if ( $this->plugin->post_type->name === get_post_type( $post ) ) {
 			unset( $actions['inline hide-if-no-js'] );
 			unset( $actions['view'] );
+
+			$setting          = get_post_meta( $post->ID, 'slack_integration_setting', true );
+			$post_type_object = get_post_type_object( $post->post_type );
+
+			if ( $setting['active'] ) {
+				$actions['deactivate'] = "<a title='" . esc_attr( __( 'Deactivate this integration setting' ) ) . "' href='" . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=deactivate', $post->ID ) ), 'deactivate-post_' . $post->ID ) . "'>" . __( 'Deactivate' ) . "</a>";
+			} else {
+				$actions['activate'] = "<a title='" . esc_attr( __( 'Activate this integration setting' ) ) . "' href='" . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=activate', $post->ID ) ), 'activate-post_' . $post->ID ) . "'>" . __( 'Activate' ) . "</a>";
+			}
 		}
 
 		return $actions;
+	}
+
+	/**
+	 * Activates the integration.
+	 *
+	 * @action admin_action_{action}
+	 */
+	public function activate() {
+		$this->_set_active_setting();
+	}
+
+	/**
+	 * Deactivates the integration.
+	 *
+	 * @action admin_action_{action}
+	 */
+	public function deactivate() {
+		$this->_set_active_setting( false );
+	}
+
+	/**
+	 * Action handler for activating/deactivating integration setting(s).
+	 *
+	 * @param bool $activate
+	 */
+	private function _set_active_setting( $activate = true ) {
+		$screen = get_current_screen();
+		if ( $screen->id !== $this->name ) {
+			return;
+		}
+
+		$post = ! empty( $_REQUEST['post'] ) ? get_post( $_REQUEST['post'] ) : null;
+		if ( ! $post ) {
+			wp_die(
+				sprintf( __( 'The integration you are trying to %s is no longer exists.', 'slack' ), $activate ? 'activate' : 'deactivate' )
+			);
+		}
+
+		check_admin_referer( sprintf( '%s-post_%d' , $activate ? 'activate' : 'deactivate', $post->ID ) );
+
+		$sendback = admin_url( 'edit.php?post_type=' . $this->name );
+		$setting  = get_post_meta( $post->ID, 'slack_integration_setting', true );
+		$setting['active'] = $activate;
+
+		update_post_meta( $post->ID, 'slack_integration_setting', $setting );
+
+		$key_arg = $activate ? 'activated' : 'deactivated';
+
+		wp_redirect( add_query_arg( array( "$key_arg" => 1, 'ids' => $post->ID ), $sendback ) );
+		exit;
+	}
+
+	/**
+	 *
+	 * @action all_admin_notices
+	 */
+	public function admin_notices() {
+		$screen = get_current_screen();
+		if ( $screen->id !== 'edit-' . $this->name ) {
+			return;
+		}
+
+		$bulk_counts = array(
+			'activated'   => isset( $_REQUEST['activated'] )   ? absint( $_REQUEST['activated'] )   : 0,
+			'deactivated' => isset( $_REQUEST['deactivated'] ) ? absint( $_REQUEST['deactivated'] ) : 0,
+		);
+
+		$bulk_messages = array(
+			'activated'   => _n( '%s integration activated.',   '%s integrations activated.',   $bulk_counts['activated'] ),
+			'deactivated' => _n( '%s integration deactivated.', '%s integrations deactivated.', $bulk_counts['deactivated'] ),
+		);
+
+		$bulk_counts = array_filter( $bulk_counts );
+
+		// If we have a bulk message to issue:
+		$messages = array();
+		foreach ( $bulk_counts as $message => $count ) {
+			if ( isset( $bulk_messages[ $message ] ) ) {
+				$messages[] = sprintf( $bulk_messages[ $message ], number_format_i18n( $count ) );
+			}
+		}
+
+		if ( $messages ) {
+			echo '<div id="message" class="updated"><p>' . join( ' ', $messages ) . '</p></div>';
+		}
 	}
 
 	/**
@@ -268,6 +392,36 @@ class WP_Slack_Post_Type {
 				break;
 		}
 	}
+
+	/**
+	 * Alter post class in list table to notice whether setting is activated or not.
+	 *
+	 * @param array  $classes An array of post classes.
+	 * @param string $class   A comma-separated list of additional classes added to the post.
+	 * @param int    $post_id The post ID.
+	 *
+	 * @filter post_class
+	 */
+	public function post_class( $classes, $class, $post_id ) {
+		if ( ! is_admin() ) {
+			return $classes;
+		}
+
+		$screen = get_current_screen();
+		if ( sprintf( 'edit-%s', $this->name ) !== $screen->id ) {
+			return $classes;
+		}
+
+		$setting = get_post_meta( $post_id, 'slack_integration_setting', true );
+		if ( ! $setting['active'] ) {
+			$classes[] = 'inactive';
+		} else {
+			$classes[] = 'active';
+		}
+
+		return $classes;
+	}
+
 
 	/**
 	 * Hides subsubsub top nav.
