@@ -10,7 +10,7 @@
  * Domain Path: /languages
  * License: GPL v2 or later
  * Requires at least: 3.6
- * Tested up to: 3.8
+ * Tested up to: 3.9
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
