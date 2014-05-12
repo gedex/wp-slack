@@ -57,7 +57,10 @@ There are some extension plugins that notify events triggered by other plugins. 
 
 ## Changelog ##
 
-### 0.4.0 ###
+### 0.4.1=
+* Fixed wrong text domain. Props [jphorn](https://github.com/jphorn)
+
+= 0.4.0 ###
 * Added `priority` key in event type array
 * Make sure `wp_insert_comment` is invoked as late as possible by passing priority `999`
 * Added comment text and linkable text to edit comment in notification message

@@ -3,7 +3,7 @@
  * Plugin Name: Slack
  * Plugin URI: http://gedex.web.id/wp-slack/
  * Description: This plugin allows you to send notifications to Slack channels when certain events in WordPress occur.
- * Version: 0.4.0
+ * Version: 0.4.1
  * Author: Akeda Bagus
  * Author URI: http://gedex.web.id
  * Text Domain: slack
