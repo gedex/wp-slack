@@ -127,6 +127,7 @@ class WP_Slack_Event_Manager {
 
 			'new_comment' => array(
 				'action'      => 'wp_insert_comment',
+				'priority'    => 999,
 				'description' => __( 'When there is a new comment', 'slack' ),
 				'default'     => false,
 				'message'     => function( $comment_id, $comment ) {
@@ -141,14 +142,24 @@ class WP_Slack_Event_Manager {
 						return false;
 					}
 
-					$post_title = get_the_title( $post_id );
-					return sprintf(
-						'New comment by *%1$s* on *<%2$s|%3$s>* (_%4$s_)',
+					$post_title     = get_the_title( $post_id );
+					$comment_status = wp_get_comment_status( $comment_id );
 
+					// Ignore spam.
+					if ( 'spam' === $comment_status ) {
+						return false;
+					}
+
+					return sprintf(
+						'<%1$s|New comment> by *%2$s* on *<%3$s|%4$s>* (_%5$s_)' . "\n" .
+						'>%6$s',
+
+						admin_url( "comment.php?c=$comment_id&action=editcomment" ),
 						$comment->comment_author,
 						get_permalink( $post_id ),
 						$post_title,
-						$comment->comment_approved ? 'approved' : 'pending'
+						$comment_status,
+						preg_replace( "/\n/", "\n>", get_comment_text( $comment_id ) )
 					);
 				},
 			),
@@ -157,6 +168,11 @@ class WP_Slack_Event_Manager {
 
 	public function notifiy_via_action( array $event, array $setting ) {
 		$notifier = $this->plugin->notifier;
+
+		$priority = 10;
+		if ( ! empty( $event['priority'] ) ) {
+			$priority = intval( $event['priority'] );
+		}
 
 		$callback = function() use( $event, $setting, $notifier ) {
 			$message = '';
@@ -177,6 +193,6 @@ class WP_Slack_Event_Manager {
 				$notifier->notify( new WP_Slack_Event_Payload( $setting ) );
 			}
 		};
-		add_action( $event['action'], $callback, null, 5 );
+		add_action( $event['action'], $callback, $priority, 5 );
 	}
 }
