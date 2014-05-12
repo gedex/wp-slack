@@ -22,7 +22,7 @@ class WP_Slack_Event_Manager {
 		// that caches the results.
 		$integrations = get_posts( array(
 			'post_type'      => $this->plugin->post_type->name,
-			'nopagimg'       => true,
+			'nopaging'       => true,
 			'posts_per_page' => -1,
 		) );
 
