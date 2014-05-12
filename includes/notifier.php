@@ -28,9 +28,6 @@ class WP_Slack_Notifier {
 				'Content-Type' => 'application/json',
 			),
 		) );
-		// pr( $payload->get_url() );
-		// pr( $payload_json );
-		// pr( $res ); die;
 
 		if ( is_wp_error( $resp ) ) {
 			return $resp;
