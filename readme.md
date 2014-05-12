@@ -57,6 +57,15 @@ There are some extension plugins that notify events triggered by other plugins. 
 
 ## Changelog ##
 
+### 0.4.0 ###
+* Added `priority` key in event type array
+* Make sure `wp_insert_comment` is invoked as late as possible by passing priority `999`
+* Added comment text and linkable text to edit comment in notification message
+* Added `post_pending_review` event type
+* Added excerpt when a post needs review (status transitioned to 'pending')
+* Added excerpt when a post is published
+* Fixed typo
+
 ### 0.3.0 ###
 * Add activate / deactivate link in row actions
 * More columns in integration list table
