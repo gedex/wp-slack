@@ -75,12 +75,51 @@ class WP_Slack_Event_Manager {
 					}
 
 					if ( 'publish' !== $old_status && 'publish' === $new_status ) {
+						$excerpt = has_excerpt( $post->ID ) ?
+							apply_filters( 'get_the_excerpt', $post->post_excerpt )
+							:
+							wp_trim_words( strip_shortcodes( $post->post_content ), 55, '&hellip;' );
+
 						return sprintf(
-							'New post published: *<%1$s|%2$s>* by *%3$s*',
+							'New post published: *<%1$s|%2$s>* by *%3$s*' . "\n" .
+							'> %4$s',
 
 							get_permalink( $post->ID ),
 							get_the_title( $post->ID ),
-							get_the_author_meta( 'display_name', $post->post_author )
+							get_the_author_meta( 'display_name', $post->post_author ),
+							$excerpt
+						);
+					}
+				},
+			),
+
+			'post_pending_review' => array(
+				'action'      => 'transition_post_status',
+				'description' => __( 'When a post needs review', 'better-hipchat' ),
+				'default'     => false,
+				'message'     => function( $new_status, $old_status, $post ) {
+					$notified_post_types = apply_filters( 'slack_event_transition_post_status_post_types', array(
+						'post',
+					) );
+
+					if ( ! in_array( $post->post_type, $notified_post_types ) ) {
+						return false;
+					}
+
+					if ( 'pending' !== $old_status && 'pending' === $new_status ) {
+						$excerpt = has_excerpt( $post->ID ) ?
+							apply_filters( 'get_the_excerpt', $post->post_excerpt )
+							:
+							wp_trim_words( strip_shortcodes( $post->post_content ), 55, '&hellip;' );
+
+						return sprintf(
+							'New post needs review: *<%1$s|%2$s>* by *%3$s*' . "\n" .
+							'> %4$s',
+
+							admin_url( sprintf( 'post.php?post=%d&action=edit', $post->ID ) ),
+							get_the_title( $post->ID ),
+							get_the_author_meta( 'display_name', $post->post_author ),
+							$excerpt
 						);
 					}
 				},

@@ -18,6 +18,7 @@ This plugin allows you to send notifications to [Slack](https://slack.com) chann
 
 By default, there are two events that can be sent to Slack:
 
+1. When a post needs review (status transitioned to 'pending')
 1. When a post is published
 1. When there's a new comment
 
