@@ -35,6 +35,17 @@
 				</p>
 			</td>
 		</tr>
+        <tr valign="top">
+			<th scope="row">
+				<label for="slack_setting[icon_emoji]"><?php _e( 'Icon', 'slack' ); ?></label>
+			</th>
+			<td>
+				<input type="text" class="regular-text" name="slack_setting[icon_emoji]" id="slack_setting[icon_emoji]" value="<?php echo ! empty( $setting['icon_emoji'] ) ? esc_attr( $setting['icon_emoji'] ) : ''; ?>">
+				<p class="description">
+					<?php _e( 'Icon of the bot that deliver the notification.', 'slack' ); ?>
+				</p>
+			</td>
+		</tr>
 
 		<tr valign="top">
 			<th scope="row">

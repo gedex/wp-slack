@@ -100,6 +100,7 @@ class WP_Slack_Post_Meta_Box {
 			'service_url' => 'esc_url',
 			'channel'     => 'sanitize_text_field',
 			'username'    => 'sanitize_text_field',
+			'icon_emoji'  => 'sanitize_text_field',
 			'active'      => function( $val ) {
 				if ( $val ) {
 					return true;
@@ -158,6 +159,7 @@ class WP_Slack_Post_Meta_Box {
 				'service_url' => esc_url( $_REQUEST['service_url'] ),
 				'channel'     => $_REQUEST['channel'],
 				'username'    => $_REQUEST['username'],
+				'icon_emoji'  => $_REQUEST['icon_emoji'],
 				'text'        => __( 'Test sending payload!', 'slack' ),
 			);
 

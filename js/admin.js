@@ -25,6 +25,7 @@
 				'service_url'      : $('[name="slack_setting[service_url]"]').val(),
 				'channel'          : $('[name="slack_setting[channel]"]').val(),
 				'username'         : $('[name="slack_setting[username]"]').val(),
+				'icon_emoji'       : $('[name="slack_setting[icon_emoji]"]').val(),
 				'test_notify_nonce': $('#slack-test-notify-nonce').val()
 			}
 		} );
