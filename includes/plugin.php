@@ -18,7 +18,7 @@ class WP_Slack_Plugin {
 	public function run( $path ) {
 		// Basic plugin information.
 		$this->name    = 'wp_slack'; // This maybe used to prefix options, slug of menu or page, and filters/actions.
-		$this->version = '0.4.1';
+		$this->version = '0.5.0';
 
 		// Path.
 		$this->plugin_path   = trailingslashit( plugin_dir_path( $path ) );

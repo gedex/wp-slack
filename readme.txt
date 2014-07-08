@@ -47,7 +47,10 @@ There are some extension plugins that notify events triggered by other plugins. 
 
 == Changelog ==
 
-= 0.4.1=
+= 0.5.0 =
+* Added bot icon support
+
+= 0.4.1 =
 * Fixed wrong text domain. Props [jphorn](https://github.com/jphorn)
 
 = 0.4.0 =
