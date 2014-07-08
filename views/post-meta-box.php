@@ -35,7 +35,8 @@
 				</p>
 			</td>
 		</tr>
-        <tr valign="top">
+
+		<tr valign="top">
 			<th scope="row">
 				<label for="slack_setting[icon_emoji]"><?php _e( 'Icon', 'slack' ); ?></label>
 			</th>
