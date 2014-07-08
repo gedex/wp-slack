@@ -31,7 +31,7 @@
 			<td>
 				<input type="text" class="regular-text" name="slack_setting[username]" id="slack_setting[username]" value="<?php echo ! empty( $setting['username'] ) ? esc_attr( $setting['username'] ) : ''; ?>">
 				<p class="description">
-					<?php _e( 'Name of the bot that deliver the notification.', 'slack' ); ?>
+					<?php _e( 'Name of the bot that delivers the notification.', 'slack' ); ?>
 				</p>
 			</td>
 		</tr>
@@ -43,7 +43,7 @@
 			<td>
 				<input type="text" class="regular-text" name="slack_setting[icon_emoji]" id="slack_setting[icon_emoji]" value="<?php echo ! empty( $setting['icon_emoji'] ) ? esc_attr( $setting['icon_emoji'] ) : ''; ?>">
 				<p class="description">
-					<?php _e( 'Icon of the bot that deliver the notification.', 'slack' ); ?>
+					<?php printf( __( 'Icon (short name) of the bot that delivers the notification. For available icon short name, see <a href="%s" target="blank" title="Emoji Catalog">here</a>. Short name must be wrapped with colon, for instance <code>:rocket:</code>.', 'slack' ), esc_url( 'http://unicodey.com/emoji-data/table.htm' ) ); ?>
 				</p>
 			</td>
 		</tr>
