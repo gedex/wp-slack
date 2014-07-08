@@ -1,5 +1,5 @@
 === Slack ===
-Contributors:      akeda
+Contributors:      akeda, reedyn
 Donate link:       http://goo.gl/DELyuR
 Tags:              slack, api, chat, notification
 Requires at least: 3.6
