@@ -47,6 +47,9 @@ There are some extension plugins that notify events triggered by other plugins. 
 
 == Changelog ==
 
+= 0.5.1 =
+* Removed bin directory for published plugin in WP.org. Props otto42
+
 = 0.5.0 =
 * Added bot icon support
 
