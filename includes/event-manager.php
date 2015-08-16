@@ -85,7 +85,7 @@ class WP_Slack_Event_Manager {
 							'> %4$s',
 
 							get_permalink( $post->ID ),
-							get_the_title( $post->ID ),
+							html_entity_decode(get_the_title( $post->ID ), ENT_QUOTES, 'UTF-8'),
 							get_the_author_meta( 'display_name', $post->post_author ),
 							$excerpt
 						);
@@ -117,7 +117,7 @@ class WP_Slack_Event_Manager {
 							'> %4$s',
 
 							admin_url( sprintf( 'post.php?post=%d&action=edit', $post->ID ) ),
-							get_the_title( $post->ID ),
+							html_entity_decode(get_the_title( $post->ID ), ENT_QUOTES, 'UTF-8'),
 							get_the_author_meta( 'display_name', $post->post_author ),
 							$excerpt
 						);
@@ -142,7 +142,7 @@ class WP_Slack_Event_Manager {
 						return false;
 					}
 
-					$post_title     = get_the_title( $post_id );
+					$post_title     = html_entity_decode(get_the_title( $post_id ), ENT_QUOTES, 'UTF-8');
 					$comment_status = wp_get_comment_status( $comment_id );
 
 					// Ignore spam.
