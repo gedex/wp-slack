@@ -87,7 +87,7 @@
 				<div id="slack-test-notify">
 					<input id="slack-test-notify-nonce" type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'test_notify_nonce' ) ); ?>">
 					<button class="button" id="slack-test-notify-button"><?php _e( 'Test send notification with this setting.', 'slack' ); ?></button>
-					<div class="spinner"></div>
+					<div class="spinner is-active"></div>
 				</div>
 				<div id="slack-test-notify-response"></div>
 			</td>
