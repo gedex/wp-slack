@@ -85,9 +85,9 @@ class WP_Slack_Event_Manager {
 							'> %4$s',
 
 							get_permalink( $post->ID ),
-							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, 'UTF-8' ),
+							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
 							get_the_author_meta( 'display_name', $post->post_author ),
-							html_entity_decode( $excerpt , ENT_QUOTES, 'UTF-8' )
+							html_entity_decode( $excerpt, ENT_QUOTES, get_bloginfo( 'charset' ) )
 						);
 					}
 				},
@@ -117,9 +117,9 @@ class WP_Slack_Event_Manager {
 							'> %4$s',
 
 							admin_url( sprintf( 'post.php?post=%d&action=edit', $post->ID ) ),
-							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, 'UTF-8' ),
+							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
 							get_the_author_meta( 'display_name', $post->post_author ),
-							html_entity_decode( $excerpt , ENT_QUOTES, 'UTF-8' )
+							html_entity_decode( $excerpt, ENT_QUOTES, get_bloginfo( 'charset' ) )
 						);
 					}
 				},
@@ -157,7 +157,7 @@ class WP_Slack_Event_Manager {
 						admin_url( "comment.php?c=$comment_id&action=editcomment" ),
 						$comment->comment_author,
 						get_permalink( $post_id ),
-						html_entity_decode( $post_title, ENT_QUOTES, 'UTF-8' ),
+						html_entity_decode( $post_title, ENT_QUOTES, get_bloginfo( 'charset' ) ),
 						$comment_status,
 						preg_replace( "/\n/", "\n>", get_comment_text( $comment_id ) )
 					);
