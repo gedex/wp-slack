@@ -176,19 +176,29 @@ class WP_Slack_Event_Manager {
 
 		$callback = function() use( $event, $setting, $notifier ) {
 			$message = '';
-			if ( is_string( $event['message'] ) ) {
+			if ( is_string( $event['message'] ) || is_array( $event['message'] ) ) {
 				$message = $event['message'];
 			} else if ( is_callable( $event['message'] ) ) {
 				$message = call_user_func_array( $event['message'], func_get_args() );
 			}
 
 			if ( ! empty( $message ) ) {
-				$setting = wp_parse_args(
-					array(
-						'text' => $message,
-					),
-					$setting
-				);
+				if ( is_string( $message ) ) {
+					$setting = wp_parse_args(
+						array(
+							'text' => $message,
+						),
+						$setting
+					);
+				} else if ( is_array( $message ) ) {
+					$setting = wp_parse_args(
+						array(
+							'attachments' => $message,
+						),
+						$setting
+					);
+					unset( $setting['text'] );
+				}
 
 				$notifier->notify( new WP_Slack_Event_Payload( $setting ) );
 			}
