@@ -126,12 +126,12 @@ class WP_Slack_Event_Manager {
 			),
 
 			'new_comment' => array(
-				'action'      => 'wp_insert_comment',
+				'action'      => 'comment_post',
 				'priority'    => 999,
 				'description' => __( 'When there is a new comment', 'slack' ),
 				'default'     => false,
-				'message'     => function( $comment_id, $comment ) {
-					$comment = is_object( $comment ) ? $comment : get_comment( absint( $comment ) );
+				'message'     => function( $comment_id ) {
+					$comment = get_comment( absint( $comment ) );
 					$post_id = $comment->comment_post_ID;
 
 					$notified_post_types = apply_filters( 'slack_event_wp_insert_comment_post_types', array(
