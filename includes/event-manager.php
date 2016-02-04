@@ -145,6 +145,14 @@ class WP_Slack_Event_Manager {
 					$post_title     = get_the_title( $post_id );
 					$comment_status = wp_get_comment_status( $comment_id );
 
+					// get user’s nicename if available
+					$user = get_user_by( 'email', $comment->comment_author_email );
+					if ( $user->data->display_name ) {
+						$user_name = $user->data->display_name;
+					} else {
+						$user_name = $comment->comment_author;
+					}
+
 					// Ignore spam.
 					if ( 'spam' === $comment_status ) {
 						return false;
@@ -155,7 +163,7 @@ class WP_Slack_Event_Manager {
 
 						$comment_id,
 						$comment_status,
-						$comment->comment_author,
+						$user_name,
 						get_permalink( $post_id ),
 						$post_title,
 						admin_url( "comment.php?c=$comment_id&action=editcomment" ),
