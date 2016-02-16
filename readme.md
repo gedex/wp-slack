@@ -34,6 +34,7 @@ There are some extension plugins that notify events triggered by other plugins. 
 * [Slack WooCommerce](http://wordpress.org/plugins/slack-woocommerce)
 * [Slack Contact Form 7](http://wordpress.org/plugins/slack-contact-form-7)
 * [Slack Gravity Forms](http://wordpress.org/plugins/slack-gravityforms)
+* [Slack User Password Reset](https://wordpress.org/plugins/user-password-reset-notifications-for-slack/)
 
 ## Installation ##
 
