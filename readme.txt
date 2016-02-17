@@ -1,10 +1,10 @@
 === Slack ===
-Contributors:      akeda, reedyn
+Contributors:      akeda, reedyn, christ0ph3r, ryanhellyer
 Donate link:       http://goo.gl/DELyuR
 Tags:              slack, api, chat, notification
 Requires at least: 3.6
-Tested up to:      3.9
-Stable tag:        0.5.1
+Tested up to:      4.3.1
+Stable tag:        0.6.0
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,10 @@ There are some extension plugins that notify events triggered by other plugins. 
 1. Your channel get notified when some events occur.
 
 == Changelog ==
+
+= 0.6.0 =
+* Custom Post type support [ryanhellyer](https://github.com/ryanhellyer)
+* HTML entities and escaped characters in notification issue [christ0ph3r](https://github.com/christ0ph3r)
 
 = 0.5.1 =
 * Removed bin directory for published plugin in WP.org. Props otto42
