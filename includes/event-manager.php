@@ -85,9 +85,9 @@ class WP_Slack_Event_Manager {
 							'> %4$s',
 
 							get_permalink( $post->ID ),
-							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
+							get_the_title( $post->ID ),
 							get_the_author_meta( 'display_name', $post->post_author ),
-							html_entity_decode( $excerpt, ENT_QUOTES, get_bloginfo( 'charset' ) )
+							$excerpt
 						);
 					}
 				},
@@ -117,9 +117,9 @@ class WP_Slack_Event_Manager {
 							'> %4$s',
 
 							admin_url( sprintf( 'post.php?post=%d&action=edit', $post->ID ) ),
-							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
+							get_the_title( $post->ID ),
 							get_the_author_meta( 'display_name', $post->post_author ),
-							html_entity_decode( $excerpt, ENT_QUOTES, get_bloginfo( 'charset' ) )
+							$excerpt
 						);
 					}
 				},
@@ -157,12 +157,35 @@ class WP_Slack_Event_Manager {
 						admin_url( "comment.php?c=$comment_id&action=editcomment" ),
 						$comment->comment_author,
 						get_permalink( $post_id ),
-						html_entity_decode( $post_title, ENT_QUOTES, get_bloginfo( 'charset' ) ),
+						$post_title,
 						$comment_status,
 						preg_replace( "/\n/", "\n>", get_comment_text( $comment_id ) )
 					);
 				},
 			),
+
+			'user_login' => array(
+				'action'      => 'wp_login',
+				'description' => __( 'When user login', 'slack' ),
+				'default'     => false,
+				'message'     => function() {
+					global $current_user;
+					get_currentuserinfo();
+					return $current_user->user_login." has login";
+				},
+			),
+			
+			'user_logout' => array(
+				'action'      => 'wp_logout',
+				'description' => __( 'When user logout', 'slack' ),
+				'default'     => false,
+				'message'     => function() {
+					global $current_user;
+					get_currentuserinfo();
+					return $current_user->user_login." has logout";
+				},
+			),
+
 		) );
 	}
 
