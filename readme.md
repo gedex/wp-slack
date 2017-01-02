@@ -7,7 +7,7 @@ Send notifications to Slack channels when certain events in WordPress occur.
 **Contributors:** [akeda](http://profiles.wordpress.org/akeda), [reedyn](http://profiles.wordpress.org/reedyn)  
 **Tags:** [slack](http://wordpress.org/plugins/tags/slack), [api](http://wordpress.org/plugins/tags/api), [chat](http://wordpress.org/plugins/tags/chat), [notification](http://wordpress.org/plugins/tags/notification)  
 **Requires at least:** 3.6  
-**Tested up to:** 3.9  
+**Tested up to:** 4.7  
 **Stable tag:** trunk (master)  
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate link:** http://goo.gl/DELyuR  
