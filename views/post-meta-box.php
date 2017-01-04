@@ -73,7 +73,10 @@
 				<label for="slack_setting[active]"><?php _e( 'Active', 'slack' ); ?></label>
 			</th>
 			<td>
-				<input type="checkbox" name="slack_setting[active]" id="slack_setting[active]" <?php checked( ! empty( $setting['active'] ) ? $setting['active'] : false ); ?>>
+				<label>
+					<input type="checkbox" name="slack_setting[active]" id="slack_setting[active]" <?php checked( ! empty( $setting['active'] ) ? $setting['active'] : false ); ?>>
+					<?php _e( 'Activate Notifications.', 'slack' ); ?>
+				</label>
 				<p class="description">
 					<?php _e( 'Notification will not be sent if not checked.', 'slack' ); ?>
 				</p>
