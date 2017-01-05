@@ -28,6 +28,8 @@ require_once __DIR__ . '/includes/autoloader.php';
 // Register the autoloader.
 WP_Slack_Autoloader::register( 'WP_Slack', trailingslashit( plugin_dir_path( __FILE__ ) ) . '/includes/' );
 
-// Runs this plugin.
-$GLOBALS['wp_slack'] = new WP_Slack_Plugin();
-$GLOBALS['wp_slack']->run( __FILE__ );
+// Runs this plugin after all plugins are loaded.
+add_action( 'plugins_loaded', function() {
+  $GLOBALS['wp_slack'] = new WP_Slack_Plugin();
+  $GLOBALS['wp_slack']->run( __FILE__ );
+});
