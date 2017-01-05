@@ -126,12 +126,12 @@ class WP_Slack_Event_Manager {
 			),
 
 			'new_comment' => array(
-				'action'      => 'wp_insert_comment',
+				'action'      => 'comment_post',
 				'priority'    => 999,
 				'description' => __( 'When there is a new comment', 'slack' ),
 				'default'     => false,
-				'message'     => function( $comment_id, $comment ) {
-					$comment = is_object( $comment ) ? $comment : get_comment( absint( $comment ) );
+				'message'     => function( $comment_id ) {
+					$comment = get_comment( absint( $comment ) );
 					$post_id = $comment->comment_post_ID;
 
 					$notified_post_types = apply_filters( 'slack_event_wp_insert_comment_post_types', array(
@@ -145,20 +145,28 @@ class WP_Slack_Event_Manager {
 					$post_title     = get_the_title( $post_id );
 					$comment_status = wp_get_comment_status( $comment_id );
 
+					// get user’s nicename if available
+					$user = get_user_by( 'email', $comment->comment_author_email );
+					if ( $user->data->display_name ) {
+						$user_name = $user->data->display_name;
+					} else {
+						$user_name = $comment->comment_author;
+					}
+
 					// Ignore spam.
 					if ( 'spam' === $comment_status ) {
 						return false;
 					}
 
 					return sprintf(
-						'<%1$s|New comment> by *%2$s* on *<%3$s|%4$s>* (_%5$s_)' . "\n" .
-						'>%6$s',
+						'<%4$s#comment-%1$s|New comment> by *%3$s* on *<%4$s|%5$s>* (_%2$s_)' . "\n" . '>%7$s' . "\n" . '<%6$sapprove|Approve it> | <%6$strash|Trash it> | <%6$sspam|Spam it> | <%4$s#comment-%1$s|See in context> | <%4$s?replytocom=%1$s#respond|Reply>',
 
-						admin_url( "comment.php?c=$comment_id&action=editcomment" ),
-						$comment->comment_author,
-						get_permalink( $post_id ),
-						html_entity_decode( $post_title, ENT_QUOTES, get_bloginfo( 'charset' ) ),
+						$comment_id,
 						$comment_status,
+						$user_name,
+						get_permalink( $post_id ),
+						$post_title,
+						admin_url( "comment.php?c=$comment_id&action=editcomment" ),
 						preg_replace( "/\n/", "\n>", get_comment_text( $comment_id ) )
 					);
 				},
