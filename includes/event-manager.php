@@ -63,7 +63,7 @@ class WP_Slack_Event_Manager {
 		return apply_filters( 'slack_get_events', array(
 			'post_published' => array(
 				'action'      => 'transition_post_status',
-				'description' => __( 'When a post is published', 'slack' ),
+				'description' => __( 'When a job is published', 'slack' ),
 				'default'     => true,
 				'message'     => function( $new_status, $old_status, $post ) {
 					$notified_post_types = apply_filters( 'slack_event_transition_post_status_post_types', array(
@@ -71,6 +71,10 @@ class WP_Slack_Event_Manager {
 					) );
 
 					if ( ! in_array( $post->post_type, $notified_post_types ) ) {
+						return false;
+					}
+					
+					if ( ! in_array( 'Jobs', get_the_category( $post->ID ) ) {
 						return false;
 					}
 
@@ -81,13 +85,14 @@ class WP_Slack_Event_Manager {
 							wp_trim_words( strip_shortcodes( $post->post_content ), 55, '&hellip;' );
 
 						return sprintf(
-							'New post published: *<%1$s|%2$s>* by *%3$s*' . "\n" .
+							'New job published: *<%1$s|%2$s>* by *%3$s* in *%5$s*' . "\n" .
 							'> %4$s',
 
 							get_permalink( $post->ID ),
 							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
-							get_the_author_meta( 'display_name', $post->post_author ),
-							html_entity_decode( $excerpt, ENT_QUOTES, get_bloginfo( 'charset' ) )
+							get_post_meta( $post->ID, 'company', true),
+							html_entity_decode( $excerpt, ENT_QUOTES, get_bloginfo( 'charset' ) ),
+							get_post_meta( $post->ID, 'comploc', true)
 						);
 					}
 				},
