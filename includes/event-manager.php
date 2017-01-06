@@ -163,6 +163,22 @@ class WP_Slack_Event_Manager {
 					);
 				},
 			),
+
+			'new_user' => array(
+				'action'      => 'user_register',
+				'description' => __( 'When a new user registers', 'slack' ),
+				'default'     => false,
+				'message'     => function( $user_id ) {
+					$nickname = get_user_meta( $user_id, 'nickname', true );
+
+					return sprintf(
+						'New user *<%1$s|%2$s>*',
+
+						admin_url( "/user-edit.php?user_id=$user_id" ),
+						$nickname
+					);
+				},
+			),
 		) );
 	}
 
