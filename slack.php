@@ -1,5 +1,11 @@
 <?php
 /**
+ * Main plugin's file.
+ *
+ * @package WP_Slack
+ */
+
+/**
  * Plugin Name: Slack
  * Plugin URI: http://gedex.web.id/wp-slack/
  * Description: This plugin allows you to send notifications to Slack channels when certain events in WordPress occur.
@@ -10,7 +16,7 @@
  * Domain Path: /languages
  * License: GPL v2 or later
  * Requires at least: 3.6
- * Tested up to: 3.9
+ * Tested up to: 4.7
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +36,6 @@ WP_Slack_Autoloader::register( 'WP_Slack', trailingslashit( plugin_dir_path( __F
 
 // Runs this plugin after all plugins are loaded.
 add_action( 'plugins_loaded', function() {
-  $GLOBALS['wp_slack'] = new WP_Slack_Plugin();
-  $GLOBALS['wp_slack']->run( __FILE__ );
+	$GLOBALS['wp_slack'] = new WP_Slack_Plugin();
+	$GLOBALS['wp_slack']->run( __FILE__ );
 });

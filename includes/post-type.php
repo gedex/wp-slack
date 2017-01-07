@@ -1,5 +1,12 @@
 <?php
 /**
+ * Custom Post Type for WP_Slack.
+ *
+ * @package WP_Slack
+ * @subpackage Integration
+ */
+
+/**
  * Custom post type where each post stores Slack integration settings.
  */
 class WP_Slack_Post_Type {
@@ -12,10 +19,17 @@ class WP_Slack_Post_Type {
 	public $name = 'slack_integration';
 
 	/**
+	 * Plugin's instance.
+	 *
 	 * @var WP_Slack_Plugin
 	 */
 	private $plugin;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param WP_Slack_Plugin $plugin Plugin's instance.
+	 */
 	public function __construct( WP_Slack_Plugin $plugin ) {
 		$this->plugin = $plugin;
 
@@ -47,7 +61,7 @@ class WP_Slack_Post_Type {
 		// Add notices for activate/deactivate actions.
 		add_action( 'all_admin_notices', array( $this, 'admin_notices' ) );
 
-		// Custom columns
+		// Custom columns.
 		add_filter( sprintf( 'manage_%s_posts_columns', $this->name ), array( $this, 'columns_header' ) );
 		add_action( sprintf( 'manage_%s_posts_custom_column', $this->name ), array( $this, 'custom_column_row' ), 10, 2 );
 
@@ -61,6 +75,9 @@ class WP_Slack_Post_Type {
 		add_filter( 'enter_title_here', array( $this, 'title_placeholder' ) );
 	}
 
+	/**
+	 * Register the custom post type.
+	 */
 	public function register_post_type() {
 		$args = array(
 			'description'         => '',
@@ -73,7 +90,7 @@ class WP_Slack_Post_Type {
 			'show_ui'             => true,
 			'show_in_menu'        => true,
 
-			'menu_position'       => 75, // Below tools
+			'menu_position'       => 75, // Below tools.
 			'menu_icon'           => $this->plugin->plugin_url . 'img/logo.png',
 			'can_export'          => true,
 			'delete_with_user'    => true,
@@ -84,21 +101,21 @@ class WP_Slack_Post_Type {
 			'map_meta_cap' => false,
 			'capabilities' => array(
 
-				// meta caps (don't assign these to roles)
+				// Meta caps (don't assign these to roles).
 				'edit_post'              => 'manage_options',
 				'read_post'              => 'manage_options',
 				'delete_post'            => 'manage_options',
 
-				// primitive/meta caps
+				// Primitive/meta caps.
 				'create_posts'           => 'manage_options',
 
-				// primitive caps used outside of map_meta_cap()
+				// Primitive caps used outside of map_meta_cap().
 				'edit_posts'             => 'manage_options',
 				'edit_others_posts'      => 'manage_options',
 				'publish_posts'          => 'manage_options',
 				'read_private_posts'     => 'manage_options',
 
-				// primitive caps used inside of map_meta_cap()
+				// Primitive caps used inside of map_meta_cap().
 				'read'                   => 'manage_options',
 				'delete_posts'           => 'manage_options',
 				'delete_private_posts'   => 'manage_options',
@@ -137,47 +154,44 @@ class WP_Slack_Post_Type {
 		register_post_type( $this->name, $args );
 	}
 
+	/**
+	 * Remove default submit meta box.
+	 */
 	public function remove_submitdiv() {
 		remove_meta_box( 'submitdiv', $this->name, 'side' );
 	}
 
+	/**
+	 * Enqueue scripts for Slack Integration screens.
+	 */
 	public function enqueue_scripts() {
-		if ( $this->name === get_post_type() ) {
+		if ( get_post_type() === $this->name ) {
 			wp_dequeue_script( 'autosave' );
 
 			wp_enqueue_style(
-				// Handle.
-				'slack-admin',
-
-				// Src.
-				$this->plugin->plugin_url . 'css/admin.css',
-
-				// Deps
-				array(),
-
-				// Version.
-				filemtime( $this->plugin->plugin_path . 'css/admin.css' ),
-
-				// Media.
-				'all'
+				'slack-admin',                                             // Handle.
+				$this->plugin->plugin_url . 'css/admin.css',               // Src.
+				array(),                                                   // Deps
+				filemtime( $this->plugin->plugin_path . 'css/admin.css' ), // Version.
+				'all'                                                      // Media.
 			);
 
 			wp_enqueue_script(
-				// Handle.
-				'slack-admin-js',
-
-				// Src.
-				$this->plugin->plugin_url . 'js/admin.js',
-
-				// Deps
-				array( 'jquery' ),
-
-				// Ver.
-				filemtime( $this->plugin->plugin_path . 'js/admin.js' )
+				'slack-admin-js',                                       // Handle.
+				$this->plugin->plugin_url . 'js/admin.js',              // Src.
+				array( 'jquery' ),                                      // Deps.
+				filemtime( $this->plugin->plugin_path . 'js/admin.js' ) // Ver.
 			);
 		}
 	}
 
+	/**
+	 * Filter message notice when integration setting is updated.
+	 *
+	 * @param array $messages List of messages when post is updated.
+	 *
+	 * @return array Updated messages
+	 */
 	public function post_updated_messages( $messages ) {
 		$messages[ $this->plugin->post_type->name ] = array_fill( 0, 11,  __( 'Setting updated.', 'slack' ) );
 
@@ -185,9 +199,16 @@ class WP_Slack_Post_Type {
 	}
 
 	/**
-	 * @param array $bulk_messages Arrays of messages, each keyed by the corresponding post type. Messages are
-	 *                             keyed with 'updated', 'locked', 'deleted', 'trashed', and 'untrashed'.
-	 * @param array $bulk_counts   Array of item counts for each message, used to build internationalized strings.
+	 * Filter message notice when integration settings were bulk-updated.
+	 *
+	 * @param array $bulk_messages Arrays of messages, each keyed by the
+	 *                             corresponding post type. Messages are keyed with
+	 *                             'updated', 'locked', 'deleted', 'trashed', and
+	 *                             'untrashed'.
+	 * @param array $bulk_counts   Array of item counts for each message, used to
+	 *                             build internationalized strings.
+	 *
+	 * @return array Updated bulk messages
 	 */
 	public function bulk_post_updated_messages( $bulk_messages, $bulk_counts ) {
 		$screen = get_current_screen();
@@ -208,19 +229,21 @@ class WP_Slack_Post_Type {
 	/**
 	 * Custom bulk actions.
 	 *
-	 * @param  array $actions
-	 * @return array
+	 * @param  array $actions List of actions.
+	 * @return array List of actions
 	 *
 	 * @filter bulk_actions-edit-slack_integration
 	 */
 	public function custom_bulk_actions( $actions ) {
 		unset( $actions['edit'] );
 
+		// @codingStandardsIgnoreStart
 		// Unfortunately adding bulk actions won't work here.
 		// @see https://core.trac.wordpress.org/ticket/16031
 		//
 		// $actions['activate']   = __( 'Activate', 'slack' );
 		// $actions['deactivate'] = __( 'Deactivate', 'slack' );
+		// @codingStandardsIgnoreEnd
 
 		return $actions;
 	}
@@ -228,15 +251,16 @@ class WP_Slack_Post_Type {
 	/**
 	 * Custom row actions for this post type.
 	 *
-	 * @param  array $actions
-	 * @return array
+	 * @param  array $actions List of actions.
+	 *
+	 * @return array List of actions
 	 *
 	 * @filter post_row_actions
 	 */
 	public function custom_row_actions( $actions ) {
 		$post = get_post();
 
-		if ( $this->plugin->post_type->name === get_post_type( $post ) ) {
+		if ( get_post_type( $post ) === $this->plugin->post_type->name ) {
 			unset( $actions['inline hide-if-no-js'] );
 			unset( $actions['view'] );
 
@@ -244,9 +268,19 @@ class WP_Slack_Post_Type {
 			$post_type_object = get_post_type_object( $post->post_type );
 
 			if ( $setting['active'] ) {
-				$actions['deactivate'] = "<a title='" . esc_attr( __( 'Deactivate this integration setting' ) ) . "' href='" . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=deactivate', $post->ID ) ), 'deactivate-post_' . $post->ID ) . "'>" . __( 'Deactivate' ) . "</a>";
+				$actions['deactivate'] = sprintf(
+					'<a title="%1$s" href="%2$s">%3$s</a>',
+					esc_attr( __( 'Deactivate this integration setting' ) ),
+					wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=deactivate', $post->ID ) ), 'deactivate-post_' . $post->ID ),
+					__( 'Deactivate' )
+				);
 			} else {
-				$actions['activate'] = "<a title='" . esc_attr( __( 'Activate this integration setting' ) ) . "' href='" . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=activate', $post->ID ) ), 'activate-post_' . $post->ID ) . "'>" . __( 'Activate' ) . "</a>";
+				$actions['activate'] = sprintf(
+					'<a title="%1$s" href="%2$s">%3$s</a>',
+					esc_attr( __( 'Activate this integration setting' ) ),
+					wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=activate', $post->ID ) ), 'activate-post_' . $post->ID ),
+					__( 'Activate' )
+				);
 			}
 		}
 
@@ -274,7 +308,7 @@ class WP_Slack_Post_Type {
 	/**
 	 * Action handler for activating/deactivating integration setting(s).
 	 *
-	 * @param bool $activate
+	 * @param bool $activate Flag to indicated whether this is activattion action.
 	 */
 	private function _set_active_setting( $activate = true ) {
 		$screen = get_current_screen();
@@ -304,12 +338,13 @@ class WP_Slack_Post_Type {
 	}
 
 	/**
+	 * Display notice when integration is activated or deactivated.
 	 *
 	 * @action all_admin_notices
 	 */
 	public function admin_notices() {
 		$screen = get_current_screen();
-		if ( $screen->id !== 'edit-' . $this->name ) {
+		if ( 'edit-' . $this->name !== $screen->id ) {
 			return;
 		}
 
@@ -325,7 +360,7 @@ class WP_Slack_Post_Type {
 
 		$bulk_counts = array_filter( $bulk_counts );
 
-		// If we have a bulk message to issue:
+		// If we have a bulk message to display.
 		$messages = array();
 		foreach ( $bulk_counts as $message => $count ) {
 			if ( isset( $bulk_messages[ $message ] ) ) {
@@ -341,8 +376,8 @@ class WP_Slack_Post_Type {
 	/**
 	 * Custom columns for this post type.
 	 *
-	 * @param  array $columns
-	 * @return array
+	 * @param  array $columns Post list columns.
+	 * @return array Post list columns
 	 *
 	 * @filter manage_{post_type}_posts_columns
 	 */
@@ -360,8 +395,8 @@ class WP_Slack_Post_Type {
 	/**
 	 * Custom column appears in each row.
 	 *
-	 * @param string $column  Column name
-	 * @param int    $post_id Post ID
+	 * @param string $column  Column name.
+	 * @param int    $post_id Post ID.
 	 *
 	 * @action manage_{post_type}_posts_custom_column
 	 */
@@ -397,8 +432,11 @@ class WP_Slack_Post_Type {
 	 * Alter post class in list table to notice whether setting is activated or not.
 	 *
 	 * @param array  $classes An array of post classes.
-	 * @param string $class   A comma-separated list of additional classes added to the post.
+	 * @param string $class   A comma-separated list of additional classes added
+	 *                        to the post.
 	 * @param int    $post_id The post ID.
+	 *
+	 * @return array Array of post classes
 	 *
 	 * @filter post_class
 	 */
@@ -426,12 +464,19 @@ class WP_Slack_Post_Type {
 	/**
 	 * Hides subsubsub top nav.
 	 *
-	 * @return array
+	 * @return array Top nav links
 	 */
 	public function hide_subsubsub() {
 		return array();
 	}
 
+	/**
+	 * Change title placeholder for Slack Integration post.
+	 *
+	 * @param string $title Title placeholder.
+	 *
+	 * @return string Updated title placeholder
+	 */
 	public function title_placeholder( $title ) {
 		$screen = get_current_screen();
 

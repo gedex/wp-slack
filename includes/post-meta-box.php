@@ -1,12 +1,28 @@
 <?php
+/**
+ * Integration Setting Meta Box.
+ *
+ * @package WP_Slack
+ * @subpackage Integration
+ */
 
+/**
+ * Handles Integration Setting Meta Box in Edit Slack Integration screen.
+ */
 class WP_Slack_Post_Meta_Box {
 
 	/**
+	 * Plugin's instance.
+	 *
 	 * @var WP_Slack_Plugin
 	 */
 	private $plugin;
 
+	/**
+	 * Plugin's instance.
+	 *
+	 * @param WP_Slack_Plugin $plugin Plugin instance.
+	 */
 	public function __construct( WP_Slack_Plugin $plugin ) {
 		$this->plugin = $plugin;
 
@@ -18,40 +34,29 @@ class WP_Slack_Post_Meta_Box {
 		add_action( 'wp_ajax_slack_test_notify', array( $this, 'ajax_test_notify' ) );
 	}
 
+	/**
+	 * Add the meta box.
+	 */
 	public function add_meta_box() {
 		add_meta_box(
-			// ID.
-			'slack_setting_metabox',
-
-			// Title.
-			__( 'Integration Setting', 'slack' ),
-
-			// Callback.
-			array( $this, 'render_meta_box' ),
-
-			// Screen.
-			$this->plugin->post_type->name,
-
-			// Context.
-			'advanced',
-
-			// Priority.
-			'high'
+			'slack_setting_metabox',              // ID.
+			__( 'Integration Setting', 'slack' ), // Title.
+			array( $this, 'render_meta_box' ),    // Renderer callback.
+			$this->plugin->post_type->name,       // Screen to render
+			'advanced',                           // Context
+			'high'                                // Priority.
 		);
 	}
 
 	/**
 	 * Display the meta box.
 	 *
-	 * @param object $post
+	 * @param WP_Post $post Post object.
 	 */
 	public function render_meta_box( $post ) {
 		wp_nonce_field(
-			// Action
-			$this->plugin->post_type->name,
-
-			// Name.
-			$this->plugin->post_type->name . '_nonce'
+			$this->plugin->post_type->name,            // Action.
+			$this->plugin->post_type->name . '_nonce'  // Name.
 		);
 
 		// Get existing setting.
@@ -69,7 +74,7 @@ class WP_Slack_Post_Meta_Box {
 	 * @param int $post_id The ID of the post being saved.
 	 */
 	public function save_post( $post_id ) {
-		if ( $this->plugin->post_type->name !== get_post_type( $post_id ) ) {
+		if ( get_post_type( $post_id ) !== $this->plugin->post_type->name ) {
 			return;
 		}
 
@@ -108,7 +113,7 @@ class WP_Slack_Post_Meta_Box {
 					return false;
 				}
 			},
-			'events' => function( $val ) use( $events ) {
+			'events' => function( $val ) use ( $events ) {
 				$saved = array_fill_keys( $events , 0 );
 
 				foreach ( $events as $event ) {
@@ -118,7 +123,7 @@ class WP_Slack_Post_Meta_Box {
 				}
 
 				return $saved;
-			}
+			},
 		);
 
 		$cleaned = array();
@@ -137,6 +142,9 @@ class WP_Slack_Post_Meta_Box {
 		update_post_meta( $post_id, 'slack_integration_setting', $cleaned );
 	}
 
+	/**
+	 * AJAX handler for test notify in edit Slack integration screen.
+	 */
 	public function ajax_test_notify() {
 		try {
 			$expected_params = array(

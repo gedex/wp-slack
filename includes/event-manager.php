@@ -1,18 +1,55 @@
 <?php
+/**
+ * Event manager.
+ *
+ * @package WP_Slack
+ * @subpackage Event
+ */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Dispatch registered events.
+ *
+ * Event registered in WP_Slack is an array with following structure:
+ *
+ * {
+ *
+ *     @type string   $action      WordPress hook.
+ *     @type string   $description Description for the event. Appears in integration
+ *                                 setting.
+ *     @type bool     $default     Default value for integration setting. True
+ *                                 means it's checked by default.
+ *     @type function $message     The callback for $action. This function must
+ *                                 returns a string to notify to Slack.
+ *
+ * }
+ */
 class WP_Slack_Event_Manager {
 
 	/**
+	 * Plugin's instance.
+	 *
 	 * @var WP_Slack_Plugin
 	 */
 	private $plugin;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param WP_Slack_Plugin $plugin Plugin's instance.
+	 */
 	public function __construct( WP_Slack_Plugin $plugin ) {
 		$this->plugin = $plugin;
 
 		$this->dispatch_events();
 	}
 
+	/**
+	 * Dispatch events.
+	 */
 	private function dispatch_events() {
 
 		$events = $this->get_events();
@@ -41,23 +78,22 @@ class WP_Slack_Event_Manager {
 				continue;
 			}
 
-			// For each checked event calls the callback, that's,
-			// hooking into event's action-name to let notifier
-			// deliver notification based on current integration
-			// setting.
+			// For each checked event calls the callback, that's, hooking into
+			// event's action-name to let notifier deliver notification based on
+			// current integration setting.
 			foreach ( $setting['events'] as $event => $is_enabled ) {
 				if ( ! empty( $events[ $event ] ) && $is_enabled ) {
 					$this->notifiy_via_action( $events[ $event ], $setting );
 				}
 			}
-
 		}
 	}
 
 	/**
-	 * Get list of events. There's filter `slack_get_events`
-	 * to extend available events that can be notified to
-	 * Slack.
+	 * Get list of events. There's filter `slack_get_events` to extend available
+	 * events that can be notified to Slack.
+	 *
+	 * @return array List of events
 	 */
 	public function get_events() {
 		return apply_filters( 'slack_get_events', array(
@@ -83,7 +119,6 @@ class WP_Slack_Event_Manager {
 						return sprintf(
 							'New post published: *<%1$s|%2$s>* by *%3$s*' . "\n" .
 							'> %4$s',
-
 							get_permalink( $post->ID ),
 							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
 							get_the_author_meta( 'display_name', $post->post_author ),
@@ -115,7 +150,6 @@ class WP_Slack_Event_Manager {
 						return sprintf(
 							'New post needs review: *<%1$s|%2$s>* by *%3$s*' . "\n" .
 							'> %4$s',
-
 							admin_url( sprintf( 'post.php?post=%d&action=edit', $post->ID ) ),
 							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
 							get_the_author_meta( 'display_name', $post->post_author ),
@@ -153,7 +187,6 @@ class WP_Slack_Event_Manager {
 					return sprintf(
 						'<%1$s|New comment> by *%2$s* on *<%3$s|%4$s>* (_%5$s_)' . "\n" .
 						'>%6$s',
-
 						admin_url( "comment.php?c=$comment_id&action=editcomment" ),
 						$comment->comment_author,
 						get_permalink( $post_id ),
@@ -166,6 +199,12 @@ class WP_Slack_Event_Manager {
 		) );
 	}
 
+	/**
+	 * Notify Slack from invoked action callback.
+	 *
+	 * @param array $event   Event.
+	 * @param array $setting Integration setting.
+	 */
 	public function notifiy_via_action( array $event, array $setting ) {
 		$notifier = $this->plugin->notifier;
 
@@ -174,11 +213,11 @@ class WP_Slack_Event_Manager {
 			$priority = intval( $event['priority'] );
 		}
 
-		$callback = function() use( $event, $setting, $notifier ) {
+		$callback = function() use ( $event, $setting, $notifier ) {
 			$message = '';
 			if ( is_string( $event['message'] ) ) {
 				$message = $event['message'];
-			} else if ( is_callable( $event['message'] ) ) {
+			} elseif ( is_callable( $event['message'] ) ) {
 				$message = call_user_func_array( $event['message'], func_get_args() );
 			}
 

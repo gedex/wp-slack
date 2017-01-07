@@ -1,5 +1,11 @@
 <?php
 /**
+ * Main Plugin Class.
+ *
+ * @package WP_Slack
+ */
+
+/**
  * This is the plugin class and acts as container for component instances and
  * basic properties of a plugin. Using container like this will avoid polluting
  * global namespaces. There's no global constants and only one global object
@@ -8,16 +14,22 @@
 class WP_Slack_Plugin {
 
 	/**
+	 * Items for setter and getter.
+	 *
 	 * @var array
 	 */
 	private $items = array();
 
 	/**
-	 * @param string $path Path to main plugin file
+	 * Run the plugin.
+	 *
+	 * @param string $path Path to main plugin file.
 	 */
 	public function run( $path ) {
-		// Basic plugin information.
-		$this->name    = 'wp_slack'; // This maybe used to prefix options, slug of menu or page, and filters/actions.
+		// This maybe used to prefix options, slug of menu or page, and
+		// filters/actions.
+		$this->name    = 'wp_slack';
+
 		$this->version = '0.5.1';
 
 		// Path.
@@ -33,10 +45,23 @@ class WP_Slack_Plugin {
 		$this->event_manager   = new WP_Slack_Event_Manager( $this );
 	}
 
+	/**
+	 * Store item's value with a given key.
+	 *
+	 * @param string $key   Item's key.
+	 * @param mixed  $value Item's value.
+	 */
 	public function __set( $key, $value ) {
 		$this->items[ $key ] = $value;
 	}
 
+	/**
+	 * Retrieve item with given key.
+	 *
+	 * @param string $key Item's key.
+	 *
+	 * @return mixed Item's value
+	 */
 	public function __get( $key ) {
 		if ( isset( $this->items[ $key ] ) ) {
 			return $this->items[ $key ];
@@ -45,10 +70,22 @@ class WP_Slack_Plugin {
 		return null;
 	}
 
+	/**
+	 * Checks whether an item with given key exists.
+	 *
+	 * @param string $key Item's key.
+	 *
+	 * @return bool Returns true if item with given key exists.
+	 */
 	public function __isset( $key ) {
 		return isset( $this->items[ $key ] );
 	}
 
+	/**
+	 * Unset item with given key.
+	 *
+	 * @param string $key Item's key.
+	 */
 	public function __unset( $key ) {
 		if ( isset( $this->items[ $key ] ) ) {
 			unset( $this->items[ $key ], $this->raws[ $key ], $this->frozen[ $key ] );

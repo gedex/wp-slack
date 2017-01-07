@@ -1,5 +1,16 @@
 <?php
 /**
+ * Autoloader for the plugin.
+ *
+ * @package WP_Slack
+ * @subpackage Autoloader
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
  * Class loader using SPL autoloader.
  */
 class WP_Slack_Autoloader {
@@ -20,6 +31,9 @@ class WP_Slack_Autoloader {
 
 	/**
 	 * Registers Autoloader as an SPL autoloader.
+	 *
+	 * @param string $class_prefix Prefix on class name to be autoloaded.
+	 * @param string $base_path    Path to load the classes.
 	 */
 	public static function register( $class_prefix, $base_path ) {
 		self::$class_prefix = $class_prefix;
@@ -31,7 +45,7 @@ class WP_Slack_Autoloader {
 	/**
 	 * Handles autoloading of classes.
 	 *
-	 * @param string $classname Class name
+	 * @param string $classname Class name.
 	 */
 	public static function autoload( $classname ) {
 		if ( false === strpos( $classname, self::$class_prefix . '_' ) ) {
