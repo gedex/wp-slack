@@ -47,6 +47,7 @@ class WP_Slack_Event_Payload {
 			'username'     => $this->setting['username'],
 			'text'         => $this->setting['text'],
 			'icon_emoji'   => $this->setting['icon_emoji'],
+			'attachments'  => $this->setting['attachments'],
 		) );
 	}
 
