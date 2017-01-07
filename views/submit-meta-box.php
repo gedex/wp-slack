@@ -1,6 +1,20 @@
+<?php
+/**
+ * View for Save Setting Meta Box in Edit Slack Integration screen.
+ *
+ * @package WP_Slack
+ * @subpackage View
+ */
+
+?>
 <div class="submitbox" id="submitpost">
 
-	<?php // Hidden submit button early on so that the browser chooses the right button when form is submitted with Return key ?>
+	<?php
+	/**
+	 * Hidden submit button early on so that the browser chooses the right
+	 * button when form is submitted with Return key.
+	 */
+	?>
 	<div style="display:none;">
 		<?php submit_button( __( 'Save' ), 'button', 'save' ); ?>
 	</div>
@@ -25,7 +39,7 @@
 			<span class="spinner"></span>
 
 			<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Save' ) ?>" />
-			<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="<?php esc_attr_e('Save' ) ?>" />
+			<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="<?php esc_attr_e( 'Save', 'slack' ); ?>" />
 		</div>
 		<div class="clear"></div>
 

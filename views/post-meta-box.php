@@ -1,3 +1,12 @@
+<?php
+/**
+ * View for Integration Setting Meta Box.
+ *
+ * @package WP_Slack
+ * @subpackage View
+ */
+
+?>
 <table class="form-table">
 	<tbody>
 		<tr valign="top">
