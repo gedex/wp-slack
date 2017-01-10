@@ -9,6 +9,25 @@ Icon
 .Spotlight-V100
 .Trashes
 
-### Project specific
+# Project specific
 bin
 deploy-to-wp-org.sh
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules
+jspm_packages
+vendor
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# tests
+tests/e2e/config/local-*
