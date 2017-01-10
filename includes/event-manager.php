@@ -206,19 +206,38 @@ class WP_Slack_Event_Manager {
 	 * @param array $setting Integration setting.
 	 */
 	public function notifiy_via_action( array $event, array $setting ) {
-		$notifier = $this->plugin->notifier;
-
 		$priority = 10;
 		if ( ! empty( $event['priority'] ) ) {
 			$priority = intval( $event['priority'] );
 		}
 
-		$callback = function() use ( $event, $setting, $notifier ) {
-			$message = '';
+		$callback = $this->get_event_callback( $event, $setting );
+
+		add_action( $event['action'], $callback, $priority, 5 );
+	}
+
+	/**
+	 * Get event callback for a given event and setting.
+	 *
+	 * @since 0.6.0
+	 *
+	 * @param array $event   Event.
+	 * @param array $setting Integration setting.
+	 *
+	 * @return function Callback for a given event and setting
+	 */
+	public function get_event_callback( array $event, array $setting ) {
+		$notifier = $this->plugin->notifier;
+
+		return function() use ( $event, $setting, $notifier ) {
+			$callback_args = array();
+			$message       = '';
+
 			if ( is_string( $event['message'] ) ) {
 				$message = $event['message'];
 			} elseif ( is_callable( $event['message'] ) ) {
-				$message = call_user_func_array( $event['message'], func_get_args() );
+				$callback_args = func_get_args();
+				$message       = call_user_func_array( $event['message'], $callback_args );
 			}
 
 			if ( ! empty( $message ) ) {
@@ -229,9 +248,20 @@ class WP_Slack_Event_Manager {
 					$setting
 				);
 
-				$notifier->notify( new WP_Slack_Event_Payload( $setting ) );
+				$resp = $notifier->notify( new WP_Slack_Event_Payload( $setting ) );
+
+				/**
+				 * Fires after notify an event to Slack.
+				 *
+				 * @since 0.6.0
+				 *
+				 * @param array|WP_Error $resp          Results from wp_remote_post.
+				 * @param array          $event         Event.
+				 * @param array          $setting       Integration setting.
+				 * @param array          $callback_args Callback arguments.
+				 */
+				do_action( 'slack_after_notify', $resp, $event, $setting, $callback_args );
 			}
 		};
-		add_action( $event['action'], $callback, $priority, 5 );
 	}
 }
