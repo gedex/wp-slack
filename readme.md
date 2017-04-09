@@ -4,19 +4,21 @@
 ![Banner](assets/banner-1544x500.png)
 Send notifications to Slack channels when certain events in WordPress occur.
 
-**Contributors:** [akeda](http://profiles.wordpress.org/akeda), [reedyn](http://profiles.wordpress.org/reedyn)  
-**Tags:** [slack](http://wordpress.org/plugins/tags/slack), [api](http://wordpress.org/plugins/tags/api), [chat](http://wordpress.org/plugins/tags/chat), [notification](http://wordpress.org/plugins/tags/notification)  
-**Requires at least:** 3.6  
-**Tested up to:** 4.7  
-**Stable tag:** trunk (master)  
-**License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
-**Donate link:** http://goo.gl/DELyuR  
+**Contributors:** [akeda](https://profiles.wordpress.org/akeda), [reedyn](https://profiles.wordpress.org/reedyn)<br>
+**Tags:** [slack](https://wordpress.org/plugins/tags/slack), [api](https://wordpress.org/plugins/tags/api), [chat](https://wordpress.org/plugins/tags/chat), [notification](https://wordpress.org/plugins/tags/notification)<br>
+**Requires at least:** 4.3<br>
+**Tested up to:** 4.7.3<br>
+**Stable tag:** 0.6.0<br>
+**License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)<br>
+**Donate link:** http://goo.gl/DELyuR<br>
+
+[![Build Status](https://travis-ci.org/gedex/wp-slack.svg?branch=master)](https://travis-ci.org/gedex/wp-slack)
 
 ## Description ##
 
 This plugin allows you to send notifications to [Slack](https://slack.com) channels when certain events in WordPress occur.
 
-[![Play video on YouTube](http://i1.ytimg.com/vi/Az-XqfRmp_k/hqdefault.jpg)](http://www.youtube.com/watch?v=Az-XqfRmp_k)
+[![Play video on YouTube](https://i1.ytimg.com/vi/Az-XqfRmp_k/hqdefault.jpg)](https://www.youtube.com/watch?v=Az-XqfRmp_k)
 
 By default, there are two events that can be sent to Slack:
 
@@ -57,6 +59,12 @@ There are some extension plugins that notify events triggered by other plugins. 
 ![Your channel get notified when some events occur.](assets/screenshot-3.png)
 
 ## Changelog ##
+
+### 0.6.0 ###
+* Fix spinner is not showing when sending test notification.
+* Convert HTML entities in Slack notifications.
+* Bump tested up to 4.7.3.
+* For developers, unit tests and end-to-end tests were added.
 
 ### 0.5.1 ###
 * Removed bin directory for published plugin in WP.org. Props otto42
