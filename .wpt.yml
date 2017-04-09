@@ -1,0 +1,25 @@
+type: plugin
+files:
+    src:
+        - '**'
+        - '!node_modules/**'
+        - '!vendor/**'
+        - '!tests/**'
+        - '!test/**'
+        - '!build/**'
+        - '!tmp/**'
+        - '!README.md'
+        - '!package.json'
+        - '!phpunit.xml.dist'
+        - '!phpcs.xml'
+    main: slack.php
+    assets:
+        - assets/*.png
+        - assets/*.svg
+gh:
+    repo: gedex/wp-slack
+    username: gedex
+wporg:
+    slug: slack
+    username: akeda
+    buildPath: build
