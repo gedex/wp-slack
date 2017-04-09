@@ -9,10 +9,6 @@ Icon
 .Spotlight-V100
 .Trashes
 
-# Project specific
-bin
-deploy-to-wp-org.sh
-
 # Logs
 logs
 *.log
