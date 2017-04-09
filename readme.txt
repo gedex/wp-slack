@@ -2,9 +2,9 @@
 Contributors:      akeda, reedyn
 Donate link:       http://goo.gl/DELyuR
 Tags:              slack, api, chat, notification
-Requires at least: 3.6
-Tested up to:      4.7
-Stable tag:        0.5.1
+Requires at least: 4.3
+Tested up to:      4.7.3
+Stable tag:        0.6.0
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,12 @@ There are some extension plugins that notify events triggered by other plugins. 
 1. Your channel get notified when some events occur.
 
 == Changelog ==
+
+= 0.6.0 =
+* Fix spinner is not showing when sending test notification.
+* Convert HTML entities in Slack notifications.
+* Bump tested up to 4.7.3.
+* For developers, unit tests and end-to-end tests were added.
 
 = 0.5.1 =
 * Removed bin directory for published plugin in WP.org. Props otto42

@@ -30,7 +30,7 @@ class WP_Slack_Plugin {
 		// filters/actions.
 		$this->name    = 'wp_slack';
 
-		$this->version = '0.5.1';
+		$this->version = '0.6.0';
 
 		// Path.
 		$this->plugin_path   = trailingslashit( plugin_dir_path( $path ) );
