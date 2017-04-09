@@ -117,7 +117,8 @@ class WP_Slack_Event_Manager {
 							wp_trim_words( strip_shortcodes( $post->post_content ), 55, '&hellip;' );
 
 						return sprintf(
-							'New post published: *<%1$s|%2$s>* by *%3$s*' . "\n" .
+							/* translators: 1) URL, 2) post title, and 3) post author. */
+							__( 'New post published: *<%1$s|%2$s>* by *%3$s*', 'slack' ) . "\n" .
 							'> %4$s',
 							get_permalink( $post->ID ),
 							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
@@ -148,7 +149,8 @@ class WP_Slack_Event_Manager {
 							wp_trim_words( strip_shortcodes( $post->post_content ), 55, '&hellip;' );
 
 						return sprintf(
-							'New post needs review: *<%1$s|%2$s>* by *%3$s*' . "\n" .
+							/* translators: 1) URL, 2) post title and 3) post author. */
+							__( 'New post needs review: *<%1$s|%2$s>* by *%3$s*', 'slack' ) . "\n" .
 							'> %4$s',
 							admin_url( sprintf( 'post.php?post=%d&action=edit', $post->ID ) ),
 							html_entity_decode( get_the_title( $post->ID ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
@@ -185,7 +187,8 @@ class WP_Slack_Event_Manager {
 					}
 
 					return sprintf(
-						'<%1$s|New comment> by *%2$s* on *<%3$s|%4$s>* (_%5$s_)' . "\n" .
+						/* translators: 1) edit URL, 2) comment author, 3) post URL, 4) post title, and 5) comment status. */
+						__( '<%1$s|New comment> by *%2$s* on *<%3$s|%4$s>* (_%5$s_)', 'slack' ) . "\n" .
 						'>%6$s',
 						admin_url( "comment.php?c=$comment_id&action=editcomment" ),
 						$comment->comment_author,

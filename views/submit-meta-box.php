@@ -16,7 +16,7 @@
 	 */
 	?>
 	<div style="display:none;">
-		<?php submit_button( __( 'Save' ), 'button', 'save' ); ?>
+		<?php submit_button( __( 'Save', 'slack' ), 'button', 'save' ); ?>
 	</div>
 
 	<?php // Always publish. ?>
@@ -38,7 +38,7 @@
 		<div id="publishing-action">
 			<span class="spinner"></span>
 
-			<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Save' ) ?>" />
+			<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Save', 'slack' ) ?>" />
 			<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="<?php esc_attr_e( 'Save', 'slack' ); ?>" />
 		</div>
 		<div class="clear"></div>

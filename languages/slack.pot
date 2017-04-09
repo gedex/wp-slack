@@ -1,0 +1,291 @@
+# Copyright (C) 2017 Slack
+# This file is distributed under the same license as the Slack package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Slack 0.5.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/slack\n"
+"POT-Creation-Date: 2017-04-09 17:47:24+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/event-manager.php:102
+msgid "When a post is published"
+msgstr ""
+
+#. translators: 1) URL, 2) post title, and 3) post author.
+#: includes/event-manager.php:121
+msgid "New post published: *<%1$s|%2$s>* by *%3$s*"
+msgstr ""
+
+#: includes/event-manager.php:134
+msgid "When a post needs review"
+msgstr ""
+
+#. translators: 1) URL, 2) post title and 3) post author.
+#: includes/event-manager.php:153
+msgid "New post needs review: *<%1$s|%2$s>* by *%3$s*"
+msgstr ""
+
+#: includes/event-manager.php:167
+msgid "When there is a new comment"
+msgstr ""
+
+#. translators: 1) edit URL, 2) comment author, 3) post URL, 4) post title, and
+#. 5) comment status.
+#: includes/event-manager.php:191
+msgid "<%1$s|New comment> by *%2$s* on *<%3$s|%4$s>* (_%5$s_)"
+msgstr ""
+
+#: includes/post-meta-box.php:43
+msgid "Integration Setting"
+msgstr ""
+
+#. translators: placeholder is request parameter for test notify AJAX.
+#: includes/post-meta-box.php:159
+msgid "Missing param %s"
+msgstr ""
+
+#: includes/post-meta-box.php:164
+msgid "Malformed value for nonce"
+msgstr ""
+
+#: includes/post-meta-box.php:172
+msgid "Test sending payload!"
+msgstr ""
+
+#: includes/post-meta-box.php:196
+msgid "Unexpected response"
+msgstr ""
+
+#: includes/post-type.php:136 includes/post-type.php:137
+msgid "Slack Integration"
+msgstr ""
+
+#. #-#-#-#-#  slack.pot (Slack 0.5.1)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: includes/post-type.php:138 includes/post-type.php:139
+msgid "Slack"
+msgstr ""
+
+#: includes/post-type.php:140
+msgid "Add New"
+msgstr ""
+
+#: includes/post-type.php:141
+msgid "Add New Slack Integration"
+msgstr ""
+
+#: includes/post-type.php:142
+msgid "Edit Slack Integration"
+msgstr ""
+
+#: includes/post-type.php:143
+msgid "New Slack Integration"
+msgstr ""
+
+#: includes/post-type.php:144
+msgid "View Slack Integration"
+msgstr ""
+
+#: includes/post-type.php:145
+msgid "Search Slack Integration"
+msgstr ""
+
+#: includes/post-type.php:146
+msgid "No slack integration found"
+msgstr ""
+
+#: includes/post-type.php:147
+msgid "No slack integration in trash"
+msgstr ""
+
+#: includes/post-type.php:148
+msgid "Slack Integrations"
+msgstr ""
+
+#: includes/post-type.php:196
+msgid "Setting updated."
+msgstr ""
+
+#. translators: placeholder is number of updated integrations.
+#: includes/post-type.php:219
+msgid "%s integration updated."
+msgid_plural "%s integrations updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: placeholder is number of updated integrations.
+#: includes/post-type.php:221
+msgid "%s integration not updated, somebody is editing it."
+msgid_plural "%s integrations not updated, somebody is editing them."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: placeholder is number of deleted integrations.
+#: includes/post-type.php:223
+msgid "%s integration permanently deleted."
+msgid_plural "%s integrations permanently deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: placeholder is number of trashed integrations.
+#: includes/post-type.php:225
+msgid "%s integration moved to the Trash."
+msgid_plural "%s integrations moved to the Trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: placeholder is number of restored integrations.
+#: includes/post-type.php:227
+msgid "%s integration restored from the Trash."
+msgid_plural "%s integrations restored from the Trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/post-type.php:278
+msgid "Deactivate this integration setting"
+msgstr ""
+
+#: includes/post-type.php:280
+msgid "Deactivate"
+msgstr ""
+
+#: includes/post-type.php:285
+msgid "Activate this integration setting"
+msgstr ""
+
+#: includes/post-type.php:287
+msgid "Activate"
+msgstr ""
+
+#. translators: placeholder is action type, either 'activate' or 'deactivate'.
+#: includes/post-type.php:328
+msgid "The integration you are trying to %s is no longer exists."
+msgstr ""
+
+#. translators: number of activated integrations.
+#: includes/post-type.php:371
+msgid "%s integration activated."
+msgid_plural "%s integrations activated."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: number of deactivated integrations.
+#: includes/post-type.php:373
+msgid "%s integration deactivated."
+msgid_plural "%s integrations deactivated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/post-type.php:402 views/post-meta-box.php:14
+msgid "Service URL"
+msgstr ""
+
+#: includes/post-type.php:403 views/post-meta-box.php:26
+msgid "Channel"
+msgstr ""
+
+#: includes/post-type.php:404
+msgid "Bot Name"
+msgstr ""
+
+#: includes/post-type.php:405
+msgid "Notified Events"
+msgstr ""
+
+#: includes/post-type.php:499
+msgid "Integration Name"
+msgstr ""
+
+#: includes/submit-meta-box.php:39
+msgid "Save Setting"
+msgstr ""
+
+#: views/post-meta-box.php:19
+msgid ""
+"Your incoming webhooks URL plugin the token parameter. The format is "
+"<code>https://SUBDOMAIN.slack.com/services/hooks/incoming-webhook?"
+"token=YOUR_TOKEN</code>."
+msgstr ""
+
+#: views/post-meta-box.php:31
+msgid ""
+"Channel in which notification will be sent to. For example <code>#general</"
+"code>."
+msgstr ""
+
+#: views/post-meta-box.php:38
+msgid "Username"
+msgstr ""
+
+#: views/post-meta-box.php:43
+msgid "Name of the bot that delivers the notification."
+msgstr ""
+
+#: views/post-meta-box.php:50
+msgid "Icon"
+msgstr ""
+
+#. translators: placeholder is URL
+#: views/post-meta-box.php:57
+msgid ""
+"Icon (short name) of the bot that delivers the notification. For available "
+"icon short name, see <a href=\"%s\" target=\"blank\" title=\"Emoji Catalog"
+"\">here</a>. Short name must be wrapped with colon, for instance <code>:"
+"rocket:</code>."
+msgstr ""
+
+#: views/post-meta-box.php:65
+msgid "Events to Notify"
+msgstr ""
+
+#: views/post-meta-box.php:85
+msgid "Active"
+msgstr ""
+
+#: views/post-meta-box.php:90
+msgid "Activate Notifications."
+msgstr ""
+
+#: views/post-meta-box.php:93
+msgid "Notification will not be sent if not checked."
+msgstr ""
+
+#: views/post-meta-box.php:104
+msgid "Test send notification with this setting."
+msgstr ""
+
+#: views/submit-meta-box.php:19 views/submit-meta-box.php:41
+#: views/submit-meta-box.php:42
+msgid "Save"
+msgstr ""
+
+#: views/submit-meta-box.php:30
+msgid "Delete Permanently"
+msgstr ""
+
+#: views/submit-meta-box.php:32
+msgid "Move to Trash"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://gedex.web.id/wp-slack/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This plugin allows you to send notifications to Slack channels when certain "
+"events in WordPress occur."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Akeda Bagus"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://gedex.web.id"
+msgstr ""

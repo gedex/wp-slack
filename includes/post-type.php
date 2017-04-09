@@ -216,15 +216,15 @@ class WP_Slack_Post_Type {
 		if ( $this->name === $screen->post_type ) {
 			$bulk_messages['post'] = array(
 				/* translators: placeholder is number of updated integrations. */
-				'updated'   => _n( '%s integration updated.', '%s integrations updated.', $bulk_counts['updated'] ),
+				'updated'   => _n( '%s integration updated.', '%s integrations updated.', $bulk_counts['updated'], 'slack' ),
 				/* translators: placeholder is number of updated integrations. */
-				'locked'    => _n( '%s integration not updated, somebody is editing it.', '%s integrations not updated, somebody is editing them.', $bulk_counts['locked'] ),
+				'locked'    => _n( '%s integration not updated, somebody is editing it.', '%s integrations not updated, somebody is editing them.', $bulk_counts['locked'], 'slack' ),
 				/* translators: placeholder is number of deleted integrations. */
-				'deleted'   => _n( '%s integration permanently deleted.', '%s integrations permanently deleted.', $bulk_counts['deleted'] ),
+				'deleted'   => _n( '%s integration permanently deleted.', '%s integrations permanently deleted.', $bulk_counts['deleted'], 'slack' ),
 				/* translators: placeholder is number of trashed integrations. */
-				'trashed'   => _n( '%s integration moved to the Trash.', '%s integrations moved to the Trash.', $bulk_counts['trashed'] ),
+				'trashed'   => _n( '%s integration moved to the Trash.', '%s integrations moved to the Trash.', $bulk_counts['trashed'], 'slack' ),
 				/* translators: placeholder is number of restored integrations. */
-				'untrashed' => _n( '%s integration restored from the Trash.', '%s integrations restored from the Trash.', $bulk_counts['untrashed'] ),
+				'untrashed' => _n( '%s integration restored from the Trash.', '%s integrations restored from the Trash.', $bulk_counts['untrashed'], 'slack' ),
 			);
 		}
 
@@ -275,16 +275,16 @@ class WP_Slack_Post_Type {
 			if ( $setting['active'] ) {
 				$actions['deactivate'] = sprintf(
 					'<a title="%1$s" href="%2$s">%3$s</a>',
-					esc_attr( __( 'Deactivate this integration setting' ) ),
+					esc_attr__( 'Deactivate this integration setting', 'slack' ),
 					wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=deactivate', $post->ID ) ), 'deactivate-post_' . $post->ID ),
-					__( 'Deactivate' )
+					esc_html__( 'Deactivate', 'slack' )
 				);
 			} else {
 				$actions['activate'] = sprintf(
 					'<a title="%1$s" href="%2$s">%3$s</a>',
-					esc_attr( __( 'Activate this integration setting' ) ),
+					esc_attr__( 'Activate this integration setting', 'slack' ),
 					wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=activate', $post->ID ) ), 'activate-post_' . $post->ID ),
-					__( 'Activate' )
+					esc_html__( 'Activate', 'slack' )
 				);
 			}
 		}
@@ -368,9 +368,9 @@ class WP_Slack_Post_Type {
 
 		$bulk_messages = array(
 			/* translators: number of activated integrations. */
-			'activated'   => _n( '%s integration activated.',   '%s integrations activated.',   $bulk_counts['activated'] ),
+			'activated'   => _n( '%s integration activated.', '%s integrations activated.', $bulk_counts['activated'], 'slack' ),
 			/* translators: number of deactivated integrations. */
-			'deactivated' => _n( '%s integration deactivated.', '%s integrations deactivated.', $bulk_counts['deactivated'] ),
+			'deactivated' => _n( '%s integration deactivated.', '%s integrations deactivated.', $bulk_counts['deactivated'], 'slack' ),
 		);
 
 		$bulk_counts = array_filter( $bulk_counts );
