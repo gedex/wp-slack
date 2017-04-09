@@ -42,7 +42,9 @@ class NotifierTest extends WP_UnitTestCase {
 
 			// This response should be returned by notify().
 			return array(
-				'response' => array( 'code' => 200 ),
+				'response' => array(
+					'code' => 200,
+				),
 			);
 		}, 10, 3 );
 		$resp = $notifier->notify( $payload );
@@ -50,7 +52,9 @@ class NotifierTest extends WP_UnitTestCase {
 
 		add_filter( 'pre_http_request', function( $preempt, $r, $url ) {
 			return array(
-				'response' => array( 'code' => 400 ),
+				'response' => array(
+					'code' => 400,
+				),
 			);
 		}, 10, 3 );
 		$resp = $notifier->notify( $payload );

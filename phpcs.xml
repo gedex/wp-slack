@@ -5,6 +5,8 @@
 	<rule ref="WordPress-Core" />
 	<rule ref="WordPress-Docs">
 		<exclude name="Squiz.Commenting.FunctionCommentThrowTag.Missing" />
+		<exclude name="Squiz.Commenting.LongConditionClosingComment" />
+		<exclude name="WordPress.Files.FileName" />
 	</rule>
 
 	<exclude-pattern>*.js</exclude-pattern>

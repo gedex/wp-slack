@@ -155,6 +155,7 @@ class WP_Slack_Post_Meta_Box {
 			);
 			foreach ( $expected_params as $param ) {
 				if ( ! isset( $_REQUEST[ $param ] ) ) {
+					/* translators: placeholder is request parameter for test notify AJAX. */
 					throw new Exception( sprintf( __( 'Missing param %s', 'slack' ), $param ) );
 				}
 			}

@@ -215,10 +215,15 @@ class WP_Slack_Post_Type {
 
 		if ( $this->name === $screen->post_type ) {
 			$bulk_messages['post'] = array(
+				/* translators: placeholder is number of updated integrations. */
 				'updated'   => _n( '%s integration updated.', '%s integrations updated.', $bulk_counts['updated'] ),
+				/* translators: placeholder is number of updated integrations. */
 				'locked'    => _n( '%s integration not updated, somebody is editing it.', '%s integrations not updated, somebody is editing them.', $bulk_counts['locked'] ),
+				/* translators: placeholder is number of deleted integrations. */
 				'deleted'   => _n( '%s integration permanently deleted.', '%s integrations permanently deleted.', $bulk_counts['deleted'] ),
+				/* translators: placeholder is number of trashed integrations. */
 				'trashed'   => _n( '%s integration moved to the Trash.', '%s integrations moved to the Trash.', $bulk_counts['trashed'] ),
+				/* translators: placeholder is number of restored integrations. */
 				'untrashed' => _n( '%s integration restored from the Trash.', '%s integrations restored from the Trash.', $bulk_counts['untrashed'] ),
 			);
 		}
@@ -319,6 +324,7 @@ class WP_Slack_Post_Type {
 		$post = ! empty( $_REQUEST['post'] ) ? get_post( $_REQUEST['post'] ) : null;
 		if ( ! $post ) {
 			wp_die(
+				/* translators: placeholder is action type, either 'activate' or 'deactivate'. */
 				sprintf( __( 'The integration you are trying to %s is no longer exists.', 'slack' ), $activate ? 'activate' : 'deactivate' )
 			);
 		}
@@ -333,7 +339,14 @@ class WP_Slack_Post_Type {
 
 		$key_arg = $activate ? 'activated' : 'deactivated';
 
-		wp_redirect( add_query_arg( array( "$key_arg" => 1, 'ids' => $post->ID ), $sendback ) );
+		wp_redirect( add_query_arg(
+			array(
+				"$key_arg" => 1,
+				'ids'      => $post->ID,
+			),
+			$sendback
+		) );
+
 		exit;
 	}
 
@@ -354,7 +367,9 @@ class WP_Slack_Post_Type {
 		);
 
 		$bulk_messages = array(
+			/* translators: number of activated integrations. */
 			'activated'   => _n( '%s integration activated.',   '%s integrations activated.',   $bulk_counts['activated'] ),
+			/* translators: number of deactivated integrations. */
 			'deactivated' => _n( '%s integration deactivated.', '%s integrations deactivated.', $bulk_counts['deactivated'] ),
 		);
 
