@@ -1,0 +1,23 @@
+{
+	"url": "http://example.com",
+	"siteTitle": "WP-Slack E2E Tests Site",
+	"users": {
+		"admin": {
+			"username": "",
+			"password": ""
+		}
+	},
+	"startBrowserTimeoutMs": 30000,
+	"mochaTimeoutMs": 120000,
+	"afterHookTimeoutMs": 30000,
+	"slack": {
+		"settings": {
+			"serviceUrl": "",
+			"channel": "#wp-slack-e2e-test",
+			"username": "bot",
+			"icon": ":ghost:"
+		},
+		"channel": "",
+		"token": ""
+	}
+}
