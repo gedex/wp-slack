@@ -1,0 +1,47 @@
+{
+  "name": "wp-slack",
+  "version": "0.6.0",
+  "description": "WordPress plugin to send notifications to Slack channels when certain events in WordPress occur",
+  "scripts": {
+    "test": "cross-env NODE_CONFIG_DIR='./tests/e2e/config' BABEL_ENV=commonjs mocha --compilers js:babel-register --recursive tests/e2e",
+    "lint": "eslint tests/e2e/"
+  },
+  "author": "Akeda Bagus",
+  "license": "GPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gedex/wp-slack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gedex/wp-slack"
+  },
+  "homepage": "https://github.com/gedex/wp-slack",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.14.0",
+    "babel-eslint": "^7.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-2": "^6.13.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "config": "^1.24.0",
+    "cross-env": "^3.0.0",
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-config-wpcalypso": "^0.6.0",
+    "eslint-plugin-import": "^2.0.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
+    "eslint-plugin-wpcalypso": "^3.0.2",
+    "grunt": "^1.0.1",
+    "istanbul": "^1.0.0-alpha",
+    "lodash": "^4.13.1",
+    "mocha": "^3.0.2",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0",
+    "request-promise-native": "^1.0.3",
+    "wp-e2e-page-objects": "^0.7.0",
+    "wp-e2e-webdriver": "^0.11.0"
+  }
+}

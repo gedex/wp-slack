@@ -31,3 +31,4 @@ vendor
 
 # tests
 tests/e2e/config/local-*
+tests/e2e/screenshots
