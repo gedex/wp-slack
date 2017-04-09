@@ -1,6 +1,8 @@
 WP Slack Tests
 ==============
 
+[![Build Status](https://travis-ci.org/gedex/wp-slack.svg?branch=master)](https://travis-ci.org/gedex/wp-slack)
+
 ## Unit Tests
 
 ### Getting started
