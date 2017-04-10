@@ -36,8 +36,8 @@ There are some extension plugins that notify events triggered by other plugins. 
 
 == Installation ==
 
-1. Upload **Slack** plugin to your blog's `wp-content/plugins/` directory and activate.
-1. Add new **Incoming WebHooks** service in your Slack, the URL is `https://<SUBDOMAIN>.com/services/new/incoming-webhook` (replace `<SUBDOMAIN>` with your Slack's subdomain). Once created, note the URL of the service (you'll set it into integration entry in your WordPress).
+1. Upload the **Slack** plugin to your blog's `wp-content/plugins/` directory and activate.
+1. Add a new **Incoming WebHooks** service in your Slack account; install from `https://<SUBDOMAIN>.slack.com/services/new/incoming-webhook` (replace `<SUBDOMAIN>` with your Slack's subdomain). Once created, note the URL of the service (you'll set it into integration entry in your WordPress).
 1. Go to **Slack** menu in your WordPress to add the integration (make sure you're logged in as an Administrator).
 
 == Screenshots ==
