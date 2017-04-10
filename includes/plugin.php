@@ -38,6 +38,7 @@ class WP_Slack_Plugin {
 		$this->includes_path = $this->plugin_path . trailingslashit( 'includes' );
 
 		// Instances.
+		$this->add_post_types  = new WP_Slack_Add_Post_Types();
 		$this->post_type       = new WP_Slack_Post_Type( $this );
 		$this->notifier        = new WP_Slack_Notifier( $this );
 		$this->post_meta_box   = new WP_Slack_Post_Meta_Box( $this );
