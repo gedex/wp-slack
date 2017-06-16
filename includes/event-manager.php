@@ -239,6 +239,13 @@ class WP_Slack_Event_Manager {
 			if ( is_string( $event['message'] ) ) {
 				$message = $event['message'];
 			} elseif ( is_callable( $event['message'] ) ) {
+				if ( isset( $setting['post_types'] ) ) {
+					$post_types = explode( ',', trim( $setting['post_types'] ) );
+					$args       = func_get_args();
+					if ( isset( $args[2] ) && is_a( $args[2], '\WP_Post', true ) && ! empty( $post_types ) && ! in_array( get_post_type( $args[2]->ID ), $post_types, true ) ) {
+						return;
+					}
+				}
 				$callback_args = func_get_args();
 				$message       = call_user_func_array( $event['message'], $callback_args );
 			}
