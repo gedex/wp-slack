@@ -95,6 +95,19 @@
 			</td>
 		</tr>
 
+		<tr valign="top">
+			<th scope="row">
+				<label for="slack_setting[post_types]"><?php esc_html_e( 'Post Types', 'slack' ); ?></label>
+			</th>
+			<td>
+				<input type="text" class="regular-text" name="slack_setting[post_types]" id="slack_setting[post_types]"
+					   value="<?php echo ! empty( $setting['post_types'] ) ? esc_attr( $setting['post_types'] ) : ''; ?>">
+				<p class="description">
+					<?php esc_html_e( 'Which post_types should trigger this notification? It is comma separated, ex: post,page. This is optional.', 'slack' ); ?>
+				</p>
+			</td>
+		</tr>
+
 		<?php if ( 'publish' === $post->post_status ) : ?>
 		<tr valign="top">
 			<th scope="row"></th>
