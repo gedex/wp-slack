@@ -460,6 +460,10 @@ class WP_Slack_Post_Type {
 			return $classes;
 		}
 
+		if ( wp_doing_ajax() ) {
+			return $classes;
+		}
+
 		$screen = get_current_screen();
 		if ( sprintf( 'edit-%s', $this->name ) !== $screen->id ) {
 			return $classes;
