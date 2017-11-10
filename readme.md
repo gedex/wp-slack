@@ -20,7 +20,7 @@ This plugin allows you to send notifications to [Slack](https://slack.com) chann
 
 [![Play video on YouTube](https://i1.ytimg.com/vi/Az-XqfRmp_k/hqdefault.jpg)](https://www.youtube.com/watch?v=Az-XqfRmp_k)
 
-By default, there are two events that can be sent to Slack:
+By default, there are three events that can be sent to Slack:
 
 1. When a post needs review (status transitioned to 'pending')
 1. When a post is published
@@ -96,5 +96,3 @@ There are some extension plugins that notify events triggered by other plugins. 
 
 ### 0.1.0 ###
 Initial release
-
-
