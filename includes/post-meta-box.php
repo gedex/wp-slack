@@ -19,7 +19,7 @@ class WP_Slack_Post_Meta_Box {
 	private $plugin;
 
 	/**
-	 * Plugin's instance.
+	 * Constructor.
 	 *
 	 * @param WP_Slack_Plugin $plugin Plugin instance.
 	 */
