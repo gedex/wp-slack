@@ -83,7 +83,7 @@ class WP_Slack_Event_Manager {
 			// current integration setting.
 			foreach ( $setting['events'] as $event => $is_enabled ) {
 				if ( ! empty( $events[ $event ] ) && $is_enabled ) {
-					$this->notifiy_via_action( $events[ $event ], $setting );
+					$this->notify_via_action( $events[ $event ], $setting );
 				}
 			}
 		}
@@ -208,7 +208,7 @@ class WP_Slack_Event_Manager {
 	 * @param array $event   Event.
 	 * @param array $setting Integration setting.
 	 */
-	public function notifiy_via_action( array $event, array $setting ) {
+	public function notify_via_action( array $event, array $setting ) {
 		$priority = 10;
 		if ( ! empty( $event['priority'] ) ) {
 			$priority = intval( $event['priority'] );

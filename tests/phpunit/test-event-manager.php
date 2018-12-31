@@ -566,7 +566,7 @@ class EventManagerTest extends WP_UnitTestCase {
 			'active'      => true,
 		);
 
-		$manager->notifiy_via_action( $event, $setting );
+		$manager->notify_via_action( $event, $setting );
 
 		$this->assertEquals( has_action( 'transition_post_status' ), 10 );
 
@@ -580,7 +580,7 @@ class EventManagerTest extends WP_UnitTestCase {
 			'priority'    => 999,
 		);
 
-		$manager->notifiy_via_action( $event, $setting );
+		$manager->notify_via_action( $event, $setting );
 
 		$this->assertEquals( has_action( 'transition_post_status' ), 999 );
 	}
