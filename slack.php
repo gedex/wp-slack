@@ -15,7 +15,7 @@
  * Text Domain: slack
  * Domain Path: /languages
  * License: GPL v2 or later
- * Requires at least: 4.3
+ * Requires at least: 4.6
  * Tested up to: 4.7.3
  *
  * This program is free software; you can redistribute it and/or modify

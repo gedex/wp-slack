@@ -2,7 +2,7 @@
 Contributors:      akeda, reedyn
 Donate link:       http://goo.gl/DELyuR
 Tags:              slack, api, chat, notification
-Requires at least: 4.3
+Requires at least: 4.6
 Tested up to:      4.7.3
 Stable tag:        0.6.0
 License:           GPLv2 or later
